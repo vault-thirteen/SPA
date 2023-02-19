@@ -1,0 +1,8 @@
+localhost
+80
+http
+X:\cert\server-cert.pem
+X:\cert\server-key.pem
+300
+http://example.org
+loader.js, styles.css, favicon.ico.png
