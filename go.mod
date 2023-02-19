@@ -1,4 +1,4 @@
-module test/SPA
+module github.com/vault-thirteen/SPA
 
 go 1.19
 
