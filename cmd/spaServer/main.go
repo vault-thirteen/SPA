@@ -18,6 +18,9 @@ func main() {
 
 	cla, err := readCLA()
 	mustBeNoError(err)
+	if cla.IsDefaultFile() {
+		log.Println("Using the default configuration file.")
+	}
 
 	var stn *settings.Settings
 	stn, err = settings.NewSettingsFromFile(cla.ConfigurationFilePath)
