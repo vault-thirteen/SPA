@@ -22,6 +22,7 @@ CD ".\..\..\"
 
 :: Copy some additional files for the server.
 COPY "%exe_dir%\%spa_server_dir%\%settings_file%" "%build_dir%\%spa_server_dir%\"
+COPY "%exe_dir%\%spa_server_dir%\create-certificates.bat" "%build_dir%\%spa_server_dir%\"
 
 :: Copy the assets.
 COPY "%assets_folder%\favicon.ico.png" "%build_dir%\%spa_server_dir%\"
