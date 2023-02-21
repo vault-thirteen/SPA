@@ -8,8 +8,8 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/vault-thirteen/SPA/pkg/server"
-	"github.com/vault-thirteen/SPA/pkg/server/settings"
+	"github.com/vault-thirteen/SPA/pkg/spaServer"
+	"github.com/vault-thirteen/SPA/pkg/spaServer/settings"
 	"github.com/vault-thirteen/Versioneer"
 )
 

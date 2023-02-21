@@ -9,7 +9,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	set "github.com/vault-thirteen/SPA/pkg/server/settings"
+	set "github.com/vault-thirteen/SPA/pkg/spaServer/settings"
 	"github.com/vault-thirteen/auxie/file"
 )
 
