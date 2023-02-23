@@ -5,15 +5,9 @@ import (
 	"log"
 	"os"
 
+	"github.com/vault-thirteen/SPA/pkg/common/models"
 	"github.com/vault-thirteen/SPA/pkg/jsonHasher/cla"
-	"github.com/vault-thirteen/SPA/pkg/jsonHasher/data"
 	ver "github.com/vault-thirteen/Versioneer"
-)
-
-const (
-	NewFilePerm = 0644
-	TmpFileExt  = ".tmp"
-	OldFileExt  = ".old"
 )
 
 func mustBeNoError(err error) {
@@ -60,7 +54,7 @@ func main() {
 func showIntro() {
 	versioneer, err := ver.New()
 	mustBeNoError(err)
-	versioneer.ShowIntroText("(Checker)")
+	versioneer.ShowIntroText("Hasher")
 	versioneer.ShowComponentsInfoText()
 	fmt.Println()
 }
@@ -68,8 +62,8 @@ func showIntro() {
 // checkFile checks the CRC32 field of the JSON file.
 // 'true' is returned if the checksum is good, otherwise – 'false'.
 func checkFile(filePath string) (ok bool, err error) {
-	var dat *data.Data
-	dat, err = data.NewFromFile(filePath)
+	var dat *models.Article
+	dat, err = models.NewArticleFromFile(filePath)
 	if err != nil {
 		return false, err
 	}
@@ -91,36 +85,19 @@ func checkFile(filePath string) (ok bool, err error) {
 // something goes wrong. It is the user's duty to clean all the old files after
 // the update. This function does not delete the old file for safety reasons.
 func fillFile(filePath string) (alreadyOk bool, err error) {
-	var dat *data.Data
-	dat, err = data.NewFromFile(filePath)
+	var article *models.Article
+	article, err = models.NewArticleFromFile(filePath)
 	if err != nil {
 		return false, err
 	}
 
-	if dat.CheckCRC32() {
+	if article.CheckCRC32() {
 		return true, nil
 	}
 
-	dat.FillCRC32()
-	var buf []byte
-	buf, err = dat.Serialize()
-	if err != nil {
-		return false, err
-	}
+	article.FillCRC32()
 
-	tmpFileName := filePath + TmpFileExt
-	err = os.WriteFile(tmpFileName, buf, NewFilePerm)
-	if err != nil {
-		return false, err
-	}
-
-	oldFileName := filePath + OldFileExt
-	err = os.Rename(filePath, oldFileName)
-	if err != nil {
-		return false, err
-	}
-
-	err = os.Rename(tmpFileName, filePath)
+	err = article.SaveAsFile(filePath)
 	if err != nil {
 		return false, err
 	}

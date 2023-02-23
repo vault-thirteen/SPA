@@ -31,3 +31,15 @@ func ParseInt(s string) (i int, err error) {
 
 	return int(tmp), nil
 }
+
+func TrimSlashPrefix(s string) string {
+	if len(s) == 0 {
+		return s
+	}
+
+	if (s[0] == '\\') || (s[0] == '/') {
+		return s[1:]
+	}
+
+	return s
+}

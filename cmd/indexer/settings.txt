@@ -1,0 +1,8 @@
+D:\Temp\SFHS-Test\SFRODB\json-db\data
+event, game, hard, life, media, motor, news, review, soft, tech
+yes
+3
+http://localhost:8000
+http://localhost:8001
+http://localhost:8002
+http://localhost:8003

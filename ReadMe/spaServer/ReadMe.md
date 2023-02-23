@@ -50,3 +50,9 @@ loader script, a CSS style sheet and a favicon file.
 This server is an SPA server. This means that it does not serve ordinary 
 data files having the contents of the whole website. It serves only those files 
 which are required to start the JavaScript SPA itself and no more.
+
+## Links Format
+
+Links in the JSON data files must not start with a slash symbol.  
+Slash symbol is automatically inserted by the JavaScript router.  
+The same rule works for icons.

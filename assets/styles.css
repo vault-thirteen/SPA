@@ -228,7 +228,7 @@ td.topMenu {
 
 .tmbSoftware:hover {
 	background-color: burlywood;
-	color: black;
+	color: white;
 	font-weight: bold;
 }
 
@@ -268,7 +268,7 @@ td.topMenu {
 
 .tmbMultimedia:hover {
 	background-color: yellow;
-	color: royalblue;
+	color: black;
 	font-weight: bold;
 }
 
