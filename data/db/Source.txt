@@ -1,0 +1,6 @@
+This example includes data obtained from the IP2Location LITE database.
+Source: https://lite.ip2location.com.
+The source file was slightly modified in following ways:
+	1.	Lines with empty country were standardized for the reader.
+	2.	Double quote symbol may not be removed while some country names
+		contain commas and such a removal would break the CSV format.

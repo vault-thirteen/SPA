@@ -170,11 +170,29 @@ function initServers() {
         hostPort: mca.server.common.host + ":8003",
     }
     mca.server.json.address = composeURL2P(mca.server.json.protocol, mca.server.json.hostPort)
+
+    // Gateway Server.
+    mca.server.gateway = {
+        protocol: mca.server.common.protocol,
+        hostPort: mca.server.common.host + "", // Port 80 is omitted.
+    };
+    mca.server.main.address = composeURL2P(mca.server.main.protocol, mca.server.main.hostPort)
 }
 
 function checkCurrentServer() {
     let curPageHostPort = window.location.host;
-    return curPageHostPort === mca.server.main.hostPort;
+
+    if (curPageHostPort === mca.server.main.hostPort) {
+        console.log("This server does not serve pages directly.");
+        return false;
+    }
+
+    if (curPageHostPort === mca.server.gateway.hostPort) {
+        return true;
+    }
+
+    console.log("Hostname is unknown.");
+    return false;
 }
 
 // initCategories creates a setting with parameters of categories.

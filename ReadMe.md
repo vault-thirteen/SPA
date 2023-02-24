@@ -16,3 +16,4 @@ located in an appropriate sub-folder of the `ReadMe` folder.
 * SPA Server – [ReadMe](ReadMe/spaServer/ReadMe.md)
 * CRC32 hash tool for JSON files – [ReadMe](ReadMe/jsonHasher/ReadMe.md)
 * Indexer – [ReadMe](ReadMe/indexer/ReadMe.md)
+* Reverse Proxy Server – [ReadMe](ReadMe/proxy/ReadMe.md)

@@ -1,0 +1,9 @@
+localhost
+80
+http
+X:\cert\server-cert.pem
+X:\cert\server-key.pem
+300
+http://source.example.org
+http://target.example.org
+data\db\DB-1.csv.zip

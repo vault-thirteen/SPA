@@ -1,4 +1,4 @@
-D:\Temp\SFHS-Test\SFRODB\json-db\data
+data
 event, game, hard, life, media, motor, news, review, soft, tech
 yes
 3

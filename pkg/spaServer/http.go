@@ -11,6 +11,11 @@ import (
 const IndexPageHdrContentType = mime.TypeTextHtml + "; charset=UTF-8"
 
 func (srv *Server) httpRouter(rw http.ResponseWriter, req *http.Request) {
+	/* DEBUG */
+	//log.Println(pretty.Sprint(req.URL))
+	//log.Println(pretty.Sprint(req.Proto))
+	//log.Println(pretty.Sprint(req.Header))
+
 	// Path is '/'.
 	if len(req.URL.Path) == 1 {
 		srv.respondWithData(rw, srv.cachedIndexPage, IndexPageHdrContentType)
