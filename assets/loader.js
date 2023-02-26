@@ -74,6 +74,10 @@ function initClicks() {
     document.addEventListener('click', (event) => {
         documentMouseClick(event).then();
     }, true);
+
+    window.addEventListener('popstate', (event) => {
+        historyButtonClick(event).then();
+    }, true);
 }
 
 // documentMouseClick is a mouse click handler for the whole document.
@@ -102,6 +106,16 @@ async function documentMouseClick(event) {
 
     // Local link click.
     window.history.pushState({}, "", targetUrl);
+    await loadPage();
+}
+
+async function historyButtonClick(event) {
+    let target = event.target;
+    if (target !== window) {
+        console.error("unknown event target");
+        return;
+    }
+
     await loadPage();
 }
 
