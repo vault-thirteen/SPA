@@ -364,7 +364,10 @@ function checkPageURI() {
     }
     mca.page.uri.path = '/' + mca.page.uri.segments.join('/');
 
-    window.history.pushState({}, "", mca.page.uri.path);
+    // Fix the URL if it is incorrect.
+    if (window.location.pathname !== mca.page.uri.path) {
+        window.history.pushState({}, "", mca.page.uri.path);
+    }
 }
 
 // getJsonObject gets the JSON content.
