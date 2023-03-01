@@ -106,12 +106,15 @@ SETLOCAL DisableDelayedExpansion
 	go install github.com/vault-thirteen/SPA/cmd/indexer@latest
 	MOVE "GOPATH\bin\indexer.exe" "SPA\Indexer\"
 	
-	:: Due to stupidity of Git which does not really support repository names
-	:: having capital letters, it adds exclamation marks for those letters.
-	:: Git was created by the same man who created an operating system core
-	:: named Linux, it is Linus Torvalds. I hope that some day this man
-	:: understands what kind of shit he has done. Or, if it was done on
-	:: purpose, he will have a very bad karma for that deed.
+	:: Looks like the stupidity was not in the Git. The stupidity is in 
+	:: the Go language itself. Issue #26456, opened on 2018-07-19.
+	:: https://github.com/golang/go/issues/26456. Almost 11 years have 
+	:: passed since the first release of the Go programming language in 
+	:: the year 2012 (or 2012-03-28 according to the release history 
+	:: page located at https://go.dev/doc/devel/release. You wanted to 
+	:: create a replacement for the good old C language. And what 
+	:: happened instead ? ...
+	
 	
 	:: Try to find the SPA source folder in the GOPATH.
 	CD "%V13_Folder%"
