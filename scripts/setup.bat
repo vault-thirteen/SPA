@@ -13,8 +13,9 @@
 @ECHO OFF
 
 :: Settings.
-SET TLS_CERT=X:\cert\server-cert.pem
-SET TLS_KEY=X:\cert\server-key.pem
+SET TLS_CERT=cert\server-cert.pem
+SET TLS_KEY=cert\server-key.pem
+SET Main_Address=https://localhost
 
 SET SFRODB_Cache_Volume_Max=128000000
 SET SFRODB_Item_Volume_Max=1000000
@@ -27,38 +28,44 @@ SET SFRODB_Data_Folder=data
 SET SFHS_Base_Host=localhost
 SET SFHS_Base_Port=8000
 SET SFHS_Base_Work_Mode=http
-SET SFHS_Base_Certificate=%TLS_CERT%
-SET SFHS_Base_Key=%TLS_KEY%
+SET SFHS_Base_Certificate=none
+SET SFHS_Base_Key=none
 SET SFHS_Base_Db_Client_Pool_Size=10
 SET SFHS_Base_TTL=300
-SET SFHS_Base_CORS_Host=http://localhost
+SET SFHS_Base_CORS_Host=%Main_Address%
 
 SET SPA_Host=%SFHS_Base_Host%
 SET SPA_Port=%SFHS_Base_Port%
 SET SPA_Base_Work_Mode=%SFHS_Base_Work_Mode%
-SET SPA_Base_Certificate=%TLS_CERT%
-SET SPA_Base_Key=%TLS_KEY%
+SET SPA_Base_Certificate=none
+SET SPA_Base_Key=none
 SET SPA_Base_TTL=%SFHS_Base_TTL%
 SET SPA_Base_CORS_Host=http://localhost
 SET SPA_Files=loader.js, styles.css, favicon.ico.png
 
-SET SPA_Indexer_CategoryPaths=event, game, hard, life, media, motor, news, review, soft, tech
-SET SPA_Indexer_ShouldCreateCategoryFolder=yes
-SET SPA_Indexer_TopNewsCount=3
-SET SPA_Indexer_MainServerAddress=http://localhost:8000
-SET SPA_Indexer_JsonServerAddress=http://localhost:8001
-SET SPA_Indexer_IconServerAddress=http://localhost:8002
-SET SPA_Indexer_JpegServerAddress=http://localhost:8003
-
 SET SPA_Proxy_Host=0.0.0.0
-SET SPA_Proxy_Port=80
-SET SPA_Proxy_Work_Mode=http
+SET SPA_Proxy_Port_Main=443
+SET SPA_Proxy_Port_Icon=1101
+SET SPA_Proxy_Port_Jpeg=1102
+SET SPA_Proxy_Port_Json=1103
+SET SPA_Proxy_Work_Mode=https
 SET SPA_Proxy_Certificate=%TLS_CERT%
 SET SPA_Proxy_Key=%TLS_KEY%
 SET SPA_Proxy_TTL=%SFHS_Base_TTL%
 SET SPA_Proxy_CORS_Host=
-SET SPA_Proxy_Target=http://localhost:8000
+SET SPA_Proxy_Target_Main=http://localhost:8000
+SET SPA_Proxy_Target_Icon=http://localhost:8001
+SET SPA_Proxy_Target_Jpeg=http://localhost:8002
+SET SPA_Proxy_Target_Json=http://localhost:8003
 SET SPA_Proxy_IPARC_DbFile=data\db\DB-1.csv.zip
+
+SET SPA_Indexer_CategoryPaths=event, game, hard, life, media, motor, news, review, soft, tech
+SET SPA_Indexer_ShouldCreateCategoryFolder=yes
+SET SPA_Indexer_TopNewsCount=3
+SET SPA_Indexer_MainServerAddress=%SFHS_Base_CORS_Host%:%SPA_Proxy_Port_Main%
+SET SPA_Indexer_IconServerAddress=%SFHS_Base_CORS_Host%:%SPA_Proxy_Port_Icon%
+SET SPA_Indexer_JpegServerAddress=%SFHS_Base_CORS_Host%:%SPA_Proxy_Port_Jpeg%
+SET SPA_Indexer_JsonServerAddress=%SFHS_Base_CORS_Host%:%SPA_Proxy_Port_Json%
 
 SET V13_Folder=GOPATH\pkg\mod\github.com\vault-thirteen
 
@@ -73,6 +80,9 @@ SETLOCAL DisableDelayedExpansion
 	MKDIR "SPA"
 	MKDIR "SPA\Server"
 	MKDIR "SPA\Proxy"
+	MKDIR "SPA\Proxy\cert"
+	MKDIR "SPA\Proxy\data"
+	MKDIR "SPA\Proxy\data\db"
 	MKDIR "SPA\Hasher"
 	MKDIR "SPA\Indexer"
 	
@@ -139,10 +149,50 @@ SETLOCAL DisableDelayedExpansion
 		ECHO Found a folder: %%i )
 	ECHO %Folder_Name%
 	
-	:: Copy the SPA assets.
+	:: Open required folders.
 	CD "%Folder_Name%\assets"
-	CD "..\..\..\..\..\..\..\"
+	CD "..\..\"
+	CD "%Folder_Name%\scripts"
+	CD "..\..\"
+	CD "..\..\..\..\..\"
+
+	:: Copy the SPA assets.
 	COPY "%V13_Folder%\%Folder_Name%\assets\*" "SPA\Server\"
+
+	:: Copy SPA scripts.
+	COPY "%V13_Folder%\%Folder_Name%\scripts\create-certificates.bat" "SPA\Proxy\"
+
+
+	:: Try to find the IPARC source folder in the GOPATH.
+	CD "%V13_Folder%"
+
+	:: Count the folders having a name starting with "!i!p!a!r!c".
+	SET Folder_Pattern=^^^^!i^^^^!p^^^^!a^^^^!r^^^^!c*
+	SETLOCAL EnableDelayedExpansion
+	DIR %Folder_Pattern% /A:D /B
+	SET c=0
+	FOR /F %%i IN ('DIR %Folder_Pattern% /A:D /B') DO (	SET /A c=!c! + 1 )
+	ECHO Total number of folders found is !c!.
+	IF !c! NEQ 1 (
+		ECHO Must be a single folder for the IPARC.
+		CD "..\..\..\..\..\"
+		EXIT /B 1 )
+	ENDLOCAL
+
+	:: Get the single folder having a name starting with "!i!p!a!r!c".
+	SET Folder_Pattern=!i!p!a!r!c*
+	FOR /F %%i IN ('DIR %Folder_Pattern% /A:D /B') DO (
+		SET Folder_Name=%%i
+		ECHO Found a folder: %%i )
+	ECHO %Folder_Name%
+
+	:: Open required folders.
+	CD "%Folder_Name%\data\db"
+	CD "..\..\..\"
+	CD "..\..\..\..\..\"
+
+	:: Copy the IPARC database.
+	COPY "%V13_Folder%\%Folder_Name%\data\db\*" "SPA\Proxy\data\db\"
 	
 	:: Clear the temporary folder.
 	RMDIR /S /Q "GOPATH"
@@ -162,9 +212,9 @@ SET /A DbAuxPort=%SFRODB_Base_Aux_Port% + %PortDelta%
 	ECHO %SFRODB_Base_Host%
 	ECHO %DbMainPort%
 	ECHO %DbAuxPort%
-	ECHO %SFRODB_Data_Folder%
+	ECHO icon-db\%SFRODB_Data_Folder%
 	ECHO .txt %SFRODB_Cache_Volume_Max% %SFRODB_Item_Volume_Max% %SFRODB_Item_TTL%
-	ECHO %SFRODB_Data_Folder%
+	ECHO icon-db\%SFRODB_Data_Folder%
 	ECHO .jpg %SFRODB_Cache_Volume_Max% %SFRODB_Item_Volume_Max% %SFRODB_Item_TTL%
 ) > "SFRODB\icon-db\settings.txt"
 :: SFHS - IconDb.
@@ -196,9 +246,9 @@ SET /A DbAuxPort=%SFRODB_Base_Aux_Port% + %PortDelta%
 	ECHO %SFRODB_Base_Host%
 	ECHO %DbMainPort%
 	ECHO %DbAuxPort%
-	ECHO %SFRODB_Data_Folder%
+	ECHO jpeg-db\%SFRODB_Data_Folder%
 	ECHO .txt %SFRODB_Cache_Volume_Max% %SFRODB_Item_Volume_Max% %SFRODB_Item_TTL%
-	ECHO %SFRODB_Data_Folder%
+	ECHO jpeg-db\%SFRODB_Data_Folder%
 	ECHO .jpg %SFRODB_Cache_Volume_Max% %SFRODB_Item_Volume_Max% %SFRODB_Item_TTL%
 ) > "SFRODB\jpeg-db\settings.txt"
 :: SFHS - JpegDb.
@@ -230,9 +280,9 @@ SET /A DbAuxPort=%SFRODB_Base_Aux_Port% + %PortDelta%
 	ECHO %SFRODB_Base_Host%
 	ECHO %DbMainPort%
 	ECHO %DbAuxPort%
-	ECHO %SFRODB_Data_Folder%
+	ECHO json-db\%SFRODB_Data_Folder%
 	ECHO .txt %SFRODB_Cache_Volume_Max% %SFRODB_Item_Volume_Max% %SFRODB_Item_TTL%
-	ECHO %SFRODB_Data_Folder%
+	ECHO json-db\%SFRODB_Data_Folder%
 	ECHO .json %SFRODB_Cache_Volume_Max% %SFRODB_Item_Volume_Max% %SFRODB_Item_TTL%
 ) > "SFRODB\json-db\settings.txt"
 :: SFHS - JsonDb.
@@ -278,15 +328,61 @@ SET /A SFHS_MainPort=%SFHS_Base_Port% + %PortDelta%
 	ECHO %SPA_Indexer_JpegServerAddress%
 ) > "SPA\Indexer\settings.txt"
 
-:: SPA Proxy.
+:: SPA Proxy for all resource servers.
+
+:: 1. SPA Proxy for Main Server.
+MKDIR "SPA\Proxy\main"
 (
 	ECHO %SPA_Proxy_Host%
-	ECHO %SPA_Proxy_Port%
+	ECHO %SPA_Proxy_Port_Main%
 	ECHO %SPA_Proxy_Work_Mode%
 	ECHO %SPA_Proxy_Certificate%
 	ECHO %SPA_Proxy_Key%
 	ECHO %SPA_Proxy_TTL%
 	IF [%SPA_Proxy_CORS_Host%]==[] ( ECHO: ) ELSE ( ECHO %SPA_Proxy_CORS_Host% )
-	ECHO %SPA_Proxy_Target%
+	ECHO %SPA_Proxy_Target_Main%
 	ECHO %SPA_Proxy_IPARC_DbFile%
-) > "SPA\Proxy\settings.txt"
+) > "SPA\Proxy\main\settings.txt"
+
+:: 2. SPA Proxy for IconDb.
+MKDIR "SPA\Proxy\icon-db"
+(
+	ECHO %SPA_Proxy_Host%
+	ECHO %SPA_Proxy_Port_Icon%
+	ECHO %SPA_Proxy_Work_Mode%
+	ECHO %SPA_Proxy_Certificate%
+	ECHO %SPA_Proxy_Key%
+	ECHO %SPA_Proxy_TTL%
+	IF [%SPA_Proxy_CORS_Host%]==[] ( ECHO: ) ELSE ( ECHO %SPA_Proxy_CORS_Host% )
+	ECHO %SPA_Proxy_Target_Icon%
+	ECHO %SPA_Proxy_IPARC_DbFile%
+) > "SPA\Proxy\icon-db\settings.txt"
+
+:: 3. SPA Proxy for JpegDb.
+MKDIR "SPA\Proxy\jpeg-db"
+(
+	ECHO %SPA_Proxy_Host%
+	ECHO %SPA_Proxy_Port_Jpeg%
+	ECHO %SPA_Proxy_Work_Mode%
+	ECHO %SPA_Proxy_Certificate%
+	ECHO %SPA_Proxy_Key%
+	ECHO %SPA_Proxy_TTL%
+	IF [%SPA_Proxy_CORS_Host%]==[] ( ECHO: ) ELSE ( ECHO %SPA_Proxy_CORS_Host% )
+	ECHO %SPA_Proxy_Target_Jpeg%
+	ECHO %SPA_Proxy_IPARC_DbFile%
+) > "SPA\Proxy\jpeg-db\settings.txt"
+
+:: 4. SPA Proxy for JsonDb.
+MKDIR "SPA\Proxy\json-db"
+(
+	ECHO %SPA_Proxy_Host%
+	ECHO %SPA_Proxy_Port_Json%
+	ECHO %SPA_Proxy_Work_Mode%
+	ECHO %SPA_Proxy_Certificate%
+	ECHO %SPA_Proxy_Key%
+	ECHO %SPA_Proxy_TTL%
+	IF [%SPA_Proxy_CORS_Host%]==[] ( ECHO: ) ELSE ( ECHO %SPA_Proxy_CORS_Host% )
+	ECHO %SPA_Proxy_Target_Json%
+	ECHO %SPA_Proxy_IPARC_DbFile%
+) > "SPA\Proxy\json-db\settings.txt"
+
