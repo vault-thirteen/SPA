@@ -153,53 +153,41 @@ function initServers() {
 
     // Base (common) setting.
     mca.server.common = {
-        protocol: "http",
+        protocol: "https",
         host: "localhost",
     };
 
-    // Main server which serves the index page.
-    mca.server.main = {
+    // Main Gateway Server.
+    mca.server.gateway = {
         protocol: mca.server.common.protocol,
-        hostPort: mca.server.common.host + ":8000",
+        hostPort: mca.server.common.host + "", // 443.
     };
-    mca.server.main.address = composeURL2P(mca.server.main.protocol, mca.server.main.hostPort)
+    mca.server.gateway.address = composeURL2P(mca.server.gateway.protocol, mca.server.gateway.hostPort)
 
-    // Server for icons.
+    // Proxy Server for icons.
     mca.server.icon = {
         protocol: mca.server.common.protocol,
-        hostPort: mca.server.common.host + ":8001",
+        hostPort: mca.server.common.host + ":1101", // See below.
     }
     mca.server.icon.address = composeURL2P(mca.server.icon.protocol, mca.server.icon.hostPort)
 
-    // Server for JPEG images.
+    // Proxy Server for JPEG images.
     mca.server.jpeg = {
         protocol: mca.server.common.protocol,
-        hostPort: mca.server.common.host + ":8002",
+        hostPort: mca.server.common.host + ":1102", // Port 445 is already taken by MS services.
     }
     mca.server.jpeg.address = composeURL2P(mca.server.jpeg.protocol, mca.server.jpeg.hostPort)
 
-    // Server for JSON files.
+    // Proxy Server for JSON files.
     mca.server.json = {
         protocol: mca.server.common.protocol,
-        hostPort: mca.server.common.host + ":8003",
+        hostPort: mca.server.common.host + ":1103", // See above.
     }
     mca.server.json.address = composeURL2P(mca.server.json.protocol, mca.server.json.hostPort)
-
-    // Gateway Server.
-    mca.server.gateway = {
-        protocol: mca.server.common.protocol,
-        hostPort: mca.server.common.host + "", // Port 80 is omitted.
-    };
-    mca.server.main.address = composeURL2P(mca.server.main.protocol, mca.server.main.hostPort)
 }
 
 function checkCurrentServer() {
     let curPageHostPort = window.location.host;
-
-    if (curPageHostPort === mca.server.main.hostPort) {
-        console.log("This server does not serve pages directly.");
-        return false;
-    }
 
     if (curPageHostPort === mca.server.gateway.hostPort) {
         return true;
