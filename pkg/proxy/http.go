@@ -38,6 +38,12 @@ func (srv *Server) respondWithNotImplemented(rw http.ResponseWriter) {
 }
 
 func (srv *Server) breakConnection(rw http.ResponseWriter) {
+	// TODO:
+	// HTTP v2 Protocol does not support closing the connection.
+	// What ???
+	// https://github.com/golang/go/issues/20977
+	// See NewResponseController in Go v1.20.
+	// https://pkg.go.dev/net/http#ResponseController
 	hj, ok := rw.(http.Hijacker)
 	if !ok {
 		srv.respondWithInternalServerError(rw)
