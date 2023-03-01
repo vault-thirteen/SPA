@@ -110,7 +110,7 @@ SETLOCAL DisableDelayedExpansion
 	:: the Go language itself. Issue #26456, opened on 2018-07-19.
 	:: https://github.com/golang/go/issues/26456. Almost 11 years have 
 	:: passed since the first release of the Go programming language in 
-	:: the year 2012 (or 2012-03-28 according to the release history 
+	:: the year 2012, or 2012-03-28 according to the release history
 	:: page located at https://go.dev/doc/devel/release. You wanted to 
 	:: create a replacement for the good old C language. And what 
 	:: happened instead ? ...
