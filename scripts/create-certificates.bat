@@ -1,4 +1,7 @@
 SET openssl=openssl
+SET OutputFolder=cert
+
+MKDIR %OutputFolder%
 
 :: Create private key for CA.
 %openssl% genrsa 8192 > ca-key.pem
@@ -16,4 +19,10 @@ SET openssl=openssl
 
 :: Verification.
 %openssl% verify -CAfile ca-cert.pem ca-cert.pem server-cert.pem
-%openssl% verify -CAfile ca-cert.pem ca-cert.pem client-cert.pem
+::%openssl% verify -CAfile ca-cert.pem ca-cert.pem client-cert.pem
+
+MOVE ca-cert.pem %OutputFolder%\
+MOVE ca-key.pem %OutputFolder%\
+MOVE server-key.pem %OutputFolder%\
+MOVE server-cert.pem %OutputFolder%\
+MOVE server-req.pem %OutputFolder%\
