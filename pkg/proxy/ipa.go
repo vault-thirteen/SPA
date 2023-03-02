@@ -58,9 +58,13 @@ func (srv *Server) isIPARAllowed(
 	ipaRange *ipar.IPAddressV4Range,
 ) (ok bool, countryCode string) {
 	countryCode = ipaRange.GetCountry().Code()
+
+	if countryCode == country.CodeUnknown {
+		return srv.settings.AllowUnknownCountries, countryCode
+	}
+
 	switch countryCode {
-	case country.CodeUnknown,
-		CountryCodeRussia,
+	case CountryCodeRussia,
 		CountryCodeChina,
 		CountryCodeBelarus,
 		CountryCodeIran,

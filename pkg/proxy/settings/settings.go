@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/vault-thirteen/SPA/pkg/common/helper"
+	"github.com/vault-thirteen/auxie/boolean"
 	"github.com/vault-thirteen/auxie/reader"
 	"github.com/vault-thirteen/errorz"
 )
@@ -63,6 +64,9 @@ type Settings struct {
 
 	// Path to IPARC database ZIP file.
 	IPARCDbFile string
+
+	// Allow unknown countries.
+	AllowUnknownCountries bool
 }
 
 func NewSettingsFromFile(filePath string) (stn *Settings, err error) {
@@ -83,7 +87,7 @@ func NewSettingsFromFile(filePath string) (stn *Settings, err error) {
 	}()
 
 	rdr := reader.NewReader(file)
-	var buf = make([][]byte, 9)
+	var buf = make([][]byte, 10)
 
 	for i := range buf {
 		buf[i], err = rdr.ReadLineEndingWithCRLF()
@@ -125,6 +129,11 @@ func NewSettingsFromFile(filePath string) (stn *Settings, err error) {
 
 	// Path to IPARC database ZIP file.
 	stn.IPARCDbFile = strings.TrimSpace(string(buf[8]))
+
+	stn.AllowUnknownCountries, err = boolean.FromString(strings.TrimSpace(string(buf[9])))
+	if err != nil {
+		return stn, err
+	}
 
 	return stn, nil
 }

@@ -2,7 +2,9 @@ package server
 
 import (
 	"log"
+	"net"
 	"net/http"
+	"time"
 )
 
 // Custom HTTP Headers.
@@ -10,6 +12,8 @@ const (
 	HttpHeaderXProxy             = "X-Proxy"
 	HttpHeaderXClientCountryCode = "X-ClientCountryCode"
 )
+
+const BCST = time.Millisecond * 50
 
 func (srv *Server) httpRouter(rw http.ResponseWriter, req *http.Request) {
 	clientIPARange, err := srv.getClientIPv4AddressRangeNR(rw, req)
@@ -20,7 +24,11 @@ func (srv *Server) httpRouter(rw http.ResponseWriter, req *http.Request) {
 
 	ok, clientCountryCode := srv.isIPARAllowed(clientIPARange)
 	if !ok {
-		srv.breakConnection(rw)
+		cerr := srv.breakConnection(rw)
+		if cerr != nil {
+			log.Println(cerr)
+			srv.respondWithInternalServerError(rw)
+		}
 		return
 	}
 
@@ -37,28 +45,26 @@ func (srv *Server) respondWithNotImplemented(rw http.ResponseWriter) {
 	rw.WriteHeader(http.StatusNotImplemented)
 }
 
-func (srv *Server) breakConnection(rw http.ResponseWriter) {
-	// TODO:
-	// HTTP v2 Protocol does not support closing the connection.
-	// What ???
-	// https://github.com/golang/go/issues/20977
-	// See NewResponseController in Go v1.20.
-	// https://pkg.go.dev/net/http#ResponseController
-	hj, ok := rw.(http.Hijacker)
-	if !ok {
-		srv.respondWithInternalServerError(rw)
-		return
-	}
+func (srv *Server) breakConnection(rw http.ResponseWriter) (err error) {
+	rc := http.NewResponseController(rw)
 
-	conn, _, err := hj.Hijack()
+	var conn net.Conn
+	conn, _, err = rc.Hijack()
 	if err != nil {
-		srv.respondWithInternalServerError(rw)
-		return
+		err = rc.SetWriteDeadline(time.Now().Add(time.Microsecond))
+		if err != nil {
+			return err
+		}
+
+		time.Sleep(BCST)
+
+		return nil
 	}
 
 	err = conn.Close()
 	if err != nil {
-		srv.respondWithInternalServerError(rw)
-		return
+		return err
 	}
+
+	return nil
 }

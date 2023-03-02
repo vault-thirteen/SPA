@@ -52,12 +52,13 @@ SET SPA_Proxy_Work_Mode=https
 SET SPA_Proxy_Certificate=%TLS_CERT%
 SET SPA_Proxy_Key=%TLS_KEY%
 SET SPA_Proxy_TTL=%SFHS_Base_TTL%
-SET SPA_Proxy_CORS_Host=
+SET SPA_Proxy_CORS_Host=%Main_Address%
 SET SPA_Proxy_Target_Main=http://localhost:8000
 SET SPA_Proxy_Target_Icon=http://localhost:8001
 SET SPA_Proxy_Target_Jpeg=http://localhost:8002
 SET SPA_Proxy_Target_Json=http://localhost:8003
 SET SPA_Proxy_IPARC_DbFile=data\db\DB-1.csv.zip
+SET SPA_Proxy_AllowUnknownCountries=no
 
 SET SPA_Indexer_CategoryPaths=event, game, hard, life, media, motor, news, review, soft, tech
 SET SPA_Indexer_ShouldCreateCategoryFolder=yes
@@ -342,6 +343,7 @@ MKDIR "SPA\Proxy\main"
 	IF [%SPA_Proxy_CORS_Host%]==[] ( ECHO: ) ELSE ( ECHO %SPA_Proxy_CORS_Host% )
 	ECHO %SPA_Proxy_Target_Main%
 	ECHO %SPA_Proxy_IPARC_DbFile%
+	ECHO %SPA_Proxy_AllowUnknownCountries%
 ) > "SPA\Proxy\main\settings.txt"
 
 :: 2. SPA Proxy for IconDb.
@@ -356,6 +358,7 @@ MKDIR "SPA\Proxy\icon-db"
 	IF [%SPA_Proxy_CORS_Host%]==[] ( ECHO: ) ELSE ( ECHO %SPA_Proxy_CORS_Host% )
 	ECHO %SPA_Proxy_Target_Icon%
 	ECHO %SPA_Proxy_IPARC_DbFile%
+	ECHO %SPA_Proxy_AllowUnknownCountries%
 ) > "SPA\Proxy\icon-db\settings.txt"
 
 :: 3. SPA Proxy for JpegDb.
@@ -370,6 +373,7 @@ MKDIR "SPA\Proxy\jpeg-db"
 	IF [%SPA_Proxy_CORS_Host%]==[] ( ECHO: ) ELSE ( ECHO %SPA_Proxy_CORS_Host% )
 	ECHO %SPA_Proxy_Target_Jpeg%
 	ECHO %SPA_Proxy_IPARC_DbFile%
+	ECHO %SPA_Proxy_AllowUnknownCountries%
 ) > "SPA\Proxy\jpeg-db\settings.txt"
 
 :: 4. SPA Proxy for JsonDb.
@@ -384,5 +388,5 @@ MKDIR "SPA\Proxy\json-db"
 	IF [%SPA_Proxy_CORS_Host%]==[] ( ECHO: ) ELSE ( ECHO %SPA_Proxy_CORS_Host% )
 	ECHO %SPA_Proxy_Target_Json%
 	ECHO %SPA_Proxy_IPARC_DbFile%
+	ECHO %SPA_Proxy_AllowUnknownCountries%
 ) > "SPA\Proxy\json-db\settings.txt"
-

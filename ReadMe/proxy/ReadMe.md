@@ -40,6 +40,7 @@ as a separator between parameters. Described below are meanings of each line.
    `Access-Control-Allow-Origin` HTTP header.
 8. Address of the target server.
 9. Path to the IPARC database file.
+10. Boolean flag showing that unknown countries should be allowed.
 
 ## HTTP Headers
 * The built-in reverse proxy server automatically sets the `X-Forwarded-For` HTTP 
