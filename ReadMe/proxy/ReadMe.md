@@ -41,6 +41,7 @@ as a separator between parameters. Described below are meanings of each line.
 8. Address of the target server.
 9. Path to the IPARC database file.
 10. Boolean flag showing that unknown countries should be allowed.
+11. Boolean flag showing that server is the main proxy server.
 
 ## HTTP Headers
 * The built-in reverse proxy server automatically sets the `X-Forwarded-For` HTTP 

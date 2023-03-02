@@ -6,6 +6,8 @@ import (
 	"net/http"
 	"net/http/httputil"
 	"net/url"
+
+	"github.com/vault-thirteen/header"
 )
 
 func (srv *Server) newProxy(targetHost string) (*httputil.ReverseProxy, error) {
@@ -36,6 +38,10 @@ func (srv *Server) modifyRequest(req *http.Request) {
 // This behaviour is hard-coded in the built-in library.
 func (srv *Server) modifyResponse() func(*http.Response) error {
 	return func(resp *http.Response) error {
+		if srv.settings.IsMainProxy {
+			resp.Header.Del(header.HttpHeaderAccessControlAllowOrigin)
+		}
+
 		if resp.StatusCode == http.StatusOK {
 			return nil
 		}

@@ -40,7 +40,7 @@ SET SPA_Base_Work_Mode=%SFHS_Base_Work_Mode%
 SET SPA_Base_Certificate=none
 SET SPA_Base_Key=none
 SET SPA_Base_TTL=%SFHS_Base_TTL%
-SET SPA_Base_CORS_Host=http://localhost
+SET SPA_Base_CORS_Host=%Main_Address%
 SET SPA_Files=loader.js, styles.css, favicon.ico.png
 
 SET SPA_Proxy_Host=0.0.0.0
@@ -340,10 +340,11 @@ MKDIR "SPA\Proxy\main"
 	ECHO %SPA_Proxy_Certificate%
 	ECHO %SPA_Proxy_Key%
 	ECHO %SPA_Proxy_TTL%
-	IF [%SPA_Proxy_CORS_Host%]==[] ( ECHO: ) ELSE ( ECHO %SPA_Proxy_CORS_Host% )
+	ECHO:
 	ECHO %SPA_Proxy_Target_Main%
 	ECHO %SPA_Proxy_IPARC_DbFile%
 	ECHO %SPA_Proxy_AllowUnknownCountries%
+	ECHO yes
 ) > "SPA\Proxy\main\settings.txt"
 
 :: 2. SPA Proxy for IconDb.
@@ -359,6 +360,7 @@ MKDIR "SPA\Proxy\icon-db"
 	ECHO %SPA_Proxy_Target_Icon%
 	ECHO %SPA_Proxy_IPARC_DbFile%
 	ECHO %SPA_Proxy_AllowUnknownCountries%
+	ECHO no
 ) > "SPA\Proxy\icon-db\settings.txt"
 
 :: 3. SPA Proxy for JpegDb.
@@ -374,6 +376,7 @@ MKDIR "SPA\Proxy\jpeg-db"
 	ECHO %SPA_Proxy_Target_Jpeg%
 	ECHO %SPA_Proxy_IPARC_DbFile%
 	ECHO %SPA_Proxy_AllowUnknownCountries%
+	ECHO no
 ) > "SPA\Proxy\jpeg-db\settings.txt"
 
 :: 4. SPA Proxy for JsonDb.
@@ -389,4 +392,5 @@ MKDIR "SPA\Proxy\json-db"
 	ECHO %SPA_Proxy_Target_Json%
 	ECHO %SPA_Proxy_IPARC_DbFile%
 	ECHO %SPA_Proxy_AllowUnknownCountries%
+	ECHO no
 ) > "SPA\Proxy\json-db\settings.txt"

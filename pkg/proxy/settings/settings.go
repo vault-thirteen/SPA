@@ -67,6 +67,10 @@ type Settings struct {
 
 	// Allow unknown countries.
 	AllowUnknownCountries bool
+
+	// Is this server main proxy ?
+	// Main proxy server does not return CORS headers.
+	IsMainProxy bool
 }
 
 func NewSettingsFromFile(filePath string) (stn *Settings, err error) {
@@ -87,7 +91,7 @@ func NewSettingsFromFile(filePath string) (stn *Settings, err error) {
 	}()
 
 	rdr := reader.NewReader(file)
-	var buf = make([][]byte, 10)
+	var buf = make([][]byte, 11)
 
 	for i := range buf {
 		buf[i], err = rdr.ReadLineEndingWithCRLF()
@@ -131,6 +135,11 @@ func NewSettingsFromFile(filePath string) (stn *Settings, err error) {
 	stn.IPARCDbFile = strings.TrimSpace(string(buf[8]))
 
 	stn.AllowUnknownCountries, err = boolean.FromString(strings.TrimSpace(string(buf[9])))
+	if err != nil {
+		return stn, err
+	}
+
+	stn.IsMainProxy, err = boolean.FromString(strings.TrimSpace(string(buf[10])))
 	if err != nil {
 		return stn, err
 	}
