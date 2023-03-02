@@ -42,7 +42,8 @@ type Server struct {
 	// Proxy Server.
 	proxy *httputil.ReverseProxy
 
-	iparc *iparc.IPAddressV4RangeCollection
+	iparc                 *iparc.IPAddressV4RangeCollection
+	forbiddenCountryCodes map[string]bool
 }
 
 func NewServer(stn *set.Settings) (srv *Server, err error) {
@@ -75,8 +76,7 @@ func NewServer(stn *set.Settings) (srv *Server, err error) {
 		Handler: http.Handler(http.HandlerFunc(srv.httpRouter)),
 	}
 
-	// IPARC.
-	err = srv.initIPARC()
+	err = srv.initFirewall()
 	if err != nil {
 		return nil, err
 	}
@@ -84,7 +84,7 @@ func NewServer(stn *set.Settings) (srv *Server, err error) {
 	return srv, nil
 }
 
-func (srv *Server) initIPARC() (err error) {
+func (srv *Server) initFirewall() (err error) {
 	var dbFilePath string
 	dbFilePath, err = helper.UnpackDbFile(srv.settings.IPARCDbFile)
 	if err != nil {
@@ -94,6 +94,11 @@ func (srv *Server) initIPARC() (err error) {
 	srv.iparc, err = iparc.NewFromCsvFile(dbFilePath)
 	if err != nil {
 		return err
+	}
+
+	srv.forbiddenCountryCodes = make(map[string]bool)
+	for _, fcc := range srv.settings.ForbiddenCountryCodes {
+		srv.forbiddenCountryCodes[fcc] = true
 	}
 
 	return nil

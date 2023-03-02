@@ -10,14 +10,6 @@ import (
 	"github.com/vault-thirteen/IPARC/ipar"
 )
 
-const (
-	CountryCodeBelarus    = "BY"
-	CountryCodeChina      = "CN"
-	CountryCodeIran       = "IR"
-	CountryCodeNorthKorea = "KP"
-	CountryCodeRussia     = "RU"
-)
-
 // getClientIPv4AddressRangeNR tries to find the IP v4 address range of the
 // provided IP address. If an error occurs, it responds with an appropriate HTTP
 // status code. The caller of this function does not need to respond.
@@ -63,14 +55,7 @@ func (srv *Server) isIPARAllowed(
 		return srv.settings.AllowUnknownCountries, countryCode
 	}
 
-	switch countryCode {
-	case CountryCodeRussia,
-		CountryCodeChina,
-		CountryCodeBelarus,
-		CountryCodeIran,
-		CountryCodeNorthKorea:
-		return false, countryCode
-	}
+	_, countryCodeIsForbidden := srv.forbiddenCountryCodes[countryCode]
 
-	return true, countryCode
+	return !countryCodeIsForbidden, countryCode
 }

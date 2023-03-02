@@ -59,6 +59,7 @@ SET SPA_Proxy_Target_Jpeg=http://localhost:8002
 SET SPA_Proxy_Target_Json=http://localhost:8003
 SET SPA_Proxy_IPARC_DbFile=data\db\DB-1.csv.zip
 SET SPA_Proxy_AllowUnknownCountries=no
+SET SPA_Proxy_ForbiddenCountryCodes=CN,RU,BY,IR,KP
 
 SET SPA_Indexer_CategoryPaths=event, game, hard, life, media, motor, news, review, soft, tech
 SET SPA_Indexer_ShouldCreateCategoryFolder=yes
@@ -344,6 +345,7 @@ MKDIR "SPA\Proxy\main"
 	ECHO %SPA_Proxy_Target_Main%
 	ECHO %SPA_Proxy_IPARC_DbFile%
 	ECHO %SPA_Proxy_AllowUnknownCountries%
+	IF "%SPA_Proxy_ForbiddenCountryCodes%" EQU "" ( ECHO: ) ELSE ( ECHO %SPA_Proxy_ForbiddenCountryCodes%)
 	ECHO yes
 ) > "SPA\Proxy\main\settings.txt"
 
@@ -360,6 +362,7 @@ MKDIR "SPA\Proxy\icon-db"
 	ECHO %SPA_Proxy_Target_Icon%
 	ECHO %SPA_Proxy_IPARC_DbFile%
 	ECHO %SPA_Proxy_AllowUnknownCountries%
+	IF "%SPA_Proxy_ForbiddenCountryCodes%" EQU "" ( ECHO: ) ELSE ( ECHO %SPA_Proxy_ForbiddenCountryCodes%)
 	ECHO no
 ) > "SPA\Proxy\icon-db\settings.txt"
 
@@ -376,6 +379,7 @@ MKDIR "SPA\Proxy\jpeg-db"
 	ECHO %SPA_Proxy_Target_Jpeg%
 	ECHO %SPA_Proxy_IPARC_DbFile%
 	ECHO %SPA_Proxy_AllowUnknownCountries%
+	IF "%SPA_Proxy_ForbiddenCountryCodes%" EQU "" ( ECHO: ) ELSE ( ECHO %SPA_Proxy_ForbiddenCountryCodes%)
 	ECHO no
 ) > "SPA\Proxy\jpeg-db\settings.txt"
 
@@ -392,5 +396,6 @@ MKDIR "SPA\Proxy\json-db"
 	ECHO %SPA_Proxy_Target_Json%
 	ECHO %SPA_Proxy_IPARC_DbFile%
 	ECHO %SPA_Proxy_AllowUnknownCountries%
+	IF "%SPA_Proxy_ForbiddenCountryCodes%" EQU "" ( ECHO: ) ELSE ( ECHO %SPA_Proxy_ForbiddenCountryCodes%)
 	ECHO no
 ) > "SPA\Proxy\json-db\settings.txt"

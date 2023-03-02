@@ -2,3 +2,4 @@
 *.exe
 vendor
 _build_
+tmp

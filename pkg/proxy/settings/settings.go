@@ -22,6 +22,7 @@ const (
 	ErrHttpCacheControlMaxAge           = "HTTP cache control max-age error"
 	ErrProxyTargetServerAddressIsNotSet = "proxy target server address is not set"
 	ErrIPARCDbFileIsNotSet              = "IPARC database file is not set"
+	ErrForbiddenCountryCodes            = "forbidden country codes error"
 )
 
 const (
@@ -68,6 +69,9 @@ type Settings struct {
 	// Allow unknown countries.
 	AllowUnknownCountries bool
 
+	// Forbidden Country Codes.
+	ForbiddenCountryCodes []string
+
 	// Is this server main proxy ?
 	// Main proxy server does not return CORS headers.
 	IsMainProxy bool
@@ -91,7 +95,7 @@ func NewSettingsFromFile(filePath string) (stn *Settings, err error) {
 	}()
 
 	rdr := reader.NewReader(file)
-	var buf = make([][]byte, 11)
+	var buf = make([][]byte, 12)
 
 	for i := range buf {
 		buf[i], err = rdr.ReadLineEndingWithCRLF()
@@ -139,7 +143,10 @@ func NewSettingsFromFile(filePath string) (stn *Settings, err error) {
 		return stn, err
 	}
 
-	stn.IsMainProxy, err = boolean.FromString(strings.TrimSpace(string(buf[10])))
+	// Forbidden Country Codes.
+	stn.ForbiddenCountryCodes = helper.ToUpperCase(helper.ParseCSV(string(buf[10])))
+
+	stn.IsMainProxy, err = boolean.FromString(strings.TrimSpace(string(buf[11])))
 	if err != nil {
 		return stn, err
 	}
@@ -206,6 +213,10 @@ func (stn *Settings) Check() (err error) {
 	// Path to IPARC database ZIP file.
 	if len(stn.IPARCDbFile) == 0 {
 		return errors.New(ErrIPARCDbFileIsNotSet)
+	}
+
+	if stn.ForbiddenCountryCodes == nil {
+		return errors.New(ErrForbiddenCountryCodes)
 	}
 
 	return nil
