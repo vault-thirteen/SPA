@@ -160,28 +160,28 @@ function initServers() {
     // Main Gateway Server.
     mca.server.gateway = {
         protocol: mca.server.common.protocol,
-        hostPort: mca.server.common.host + "", // 443.
+        hostPort: mca.server.common.host + "", // 443, TLS.
     };
     mca.server.gateway.address = composeURL2P(mca.server.gateway.protocol, mca.server.gateway.hostPort)
 
     // Proxy Server for icons.
     mca.server.icon = {
         protocol: mca.server.common.protocol,
-        hostPort: mca.server.common.host + ":1101", // See below.
+        hostPort: mca.server.common.host + ":8001", // TLS.
     }
     mca.server.icon.address = composeURL2P(mca.server.icon.protocol, mca.server.icon.hostPort)
 
     // Proxy Server for JPEG images.
     mca.server.jpeg = {
         protocol: mca.server.common.protocol,
-        hostPort: mca.server.common.host + ":1102", // Port 445 is already taken by MS services.
+        hostPort: mca.server.common.host + ":8002", // TLS.
     }
     mca.server.jpeg.address = composeURL2P(mca.server.jpeg.protocol, mca.server.jpeg.hostPort)
 
     // Proxy Server for JSON files.
     mca.server.json = {
         protocol: mca.server.common.protocol,
-        hostPort: mca.server.common.host + ":1103", // See above.
+        hostPort: mca.server.common.host + ":8003", // TLS.
     }
     mca.server.json.address = composeURL2P(mca.server.json.protocol, mca.server.json.hostPort)
 }

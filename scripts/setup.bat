@@ -27,36 +27,30 @@ SET SFRODB_Data_Folder=data
 
 SET SFHS_Base_Host=localhost
 SET SFHS_Base_Port=8000
-SET SFHS_Base_Work_Mode=http
-SET SFHS_Base_Certificate=none
-SET SFHS_Base_Key=none
+SET SFHS_Base_Work_Mode=https
+SET SFHS_Base_Certificate=..\SPA\Proxy\%TLS_CERT%
+SET SFHS_Base_Key=..\SPA\Proxy\%TLS_KEY%
 SET SFHS_Base_Db_Client_Pool_Size=10
 SET SFHS_Base_TTL=300
 SET SFHS_Base_CORS_Host=%Main_Address%
 
 SET SPA_Host=%SFHS_Base_Host%
 SET SPA_Port=%SFHS_Base_Port%
-SET SPA_Base_Work_Mode=%SFHS_Base_Work_Mode%
-SET SPA_Base_Certificate=none
-SET SPA_Base_Key=none
+SET SPA_Base_Work_Mode=http
+SET SPA_Base_Certificate=
+SET SPA_Base_Key=
 SET SPA_Base_TTL=%SFHS_Base_TTL%
 SET SPA_Base_CORS_Host=%Main_Address%
 SET SPA_Files=loader.js, styles.css, favicon.ico.png
 
 SET SPA_Proxy_Host=0.0.0.0
 SET SPA_Proxy_Port_Main=443
-SET SPA_Proxy_Port_Icon=1101
-SET SPA_Proxy_Port_Jpeg=1102
-SET SPA_Proxy_Port_Json=1103
 SET SPA_Proxy_Work_Mode=https
 SET SPA_Proxy_Certificate=%TLS_CERT%
 SET SPA_Proxy_Key=%TLS_KEY%
 SET SPA_Proxy_TTL=%SFHS_Base_TTL%
 SET SPA_Proxy_CORS_Host=%Main_Address%
 SET SPA_Proxy_Target_Main=http://localhost:8000
-SET SPA_Proxy_Target_Icon=http://localhost:8001
-SET SPA_Proxy_Target_Jpeg=http://localhost:8002
-SET SPA_Proxy_Target_Json=http://localhost:8003
 SET SPA_Proxy_IPARC_DbFile=data\db\DB-1.csv.zip
 SET SPA_Proxy_AllowUnknownCountries=no
 SET SPA_Proxy_ForbiddenCountryCodes=CN,RU,BY,IR,KP
@@ -70,9 +64,6 @@ SET SPA_Indexer_JpegServerAddress=%SFHS_Base_CORS_Host%:%SPA_Proxy_Port_Jpeg%
 SET SPA_Indexer_JsonServerAddress=%SFHS_Base_CORS_Host%:%SPA_Proxy_Port_Json%
 
 SET V13_Folder=GOPATH\pkg\mod\github.com\vault-thirteen
-
-::GOTO Part1
-::GOTO Part2
 
 :: Part I. Get the executable files.
 :Part1
@@ -221,10 +212,10 @@ SET /A DbAuxPort=%SFRODB_Base_Aux_Port% + %PortDelta%
 ) > "SFRODB\icon-db\settings.txt"
 :: SFHS - IconDb.
 MKDIR "SFHS\icon-db"
-SET /A SFHS_MainPort=%SFHS_Base_Port% + %PortDelta%
+SET /A SFHS_Port=%SFHS_Base_Port% + %PortDelta%
 (
 	ECHO %SFHS_Base_Host%
-	ECHO %SFHS_MainPort%
+	ECHO %SFHS_Port%
 	ECHO %SFHS_Base_Work_Mode%
 	ECHO %SFHS_Base_Certificate%
 	ECHO %SFHS_Base_Key%
@@ -255,10 +246,10 @@ SET /A DbAuxPort=%SFRODB_Base_Aux_Port% + %PortDelta%
 ) > "SFRODB\jpeg-db\settings.txt"
 :: SFHS - JpegDb.
 MKDIR "SFHS\jpeg-db"
-SET /A SFHS_MainPort=%SFHS_Base_Port% + %PortDelta%
+SET /A SFHS_Port=%SFHS_Base_Port% + %PortDelta%
 (
 	ECHO %SFHS_Base_Host%
-	ECHO %SFHS_MainPort%
+	ECHO %SFHS_Port%
 	ECHO %SFHS_Base_Work_Mode%
 	ECHO %SFHS_Base_Certificate%
 	ECHO %SFHS_Base_Key%
@@ -289,10 +280,10 @@ SET /A DbAuxPort=%SFRODB_Base_Aux_Port% + %PortDelta%
 ) > "SFRODB\json-db\settings.txt"
 :: SFHS - JsonDb.
 MKDIR "SFHS\json-db"
-SET /A SFHS_MainPort=%SFHS_Base_Port% + %PortDelta%
+SET /A SFHS_Port=%SFHS_Base_Port% + %PortDelta%
 (
 	ECHO %SFHS_Base_Host%
-	ECHO %SFHS_MainPort%
+	ECHO %SFHS_Port%
 	ECHO %SFHS_Base_Work_Mode%
 	ECHO %SFHS_Base_Certificate%
 	ECHO %SFHS_Base_Key%
@@ -311,8 +302,8 @@ SET /A SFHS_MainPort=%SFHS_Base_Port% + %PortDelta%
 	ECHO %SPA_Host%
 	ECHO %SPA_Port%
 	ECHO %SPA_Base_Work_Mode%
-	ECHO %SPA_Base_Certificate%
-	ECHO %SPA_Base_Key%
+	IF "%SPA_Base_Certificate%" EQU "" ( ECHO: ) ELSE ( ECHO %SPA_Base_Certificate%)
+	IF "%SPA_Base_Key%" EQU "" ( ECHO: ) ELSE ( ECHO %SPA_Base_Key%)
 	ECHO %SPA_Base_TTL%
 	ECHO %SPA_Base_CORS_Host%
 	ECHO %SPA_Files%
@@ -330,9 +321,7 @@ SET /A SFHS_MainPort=%SFHS_Base_Port% + %PortDelta%
 	ECHO %SPA_Indexer_JpegServerAddress%
 ) > "SPA\Indexer\settings.txt"
 
-:: SPA Proxy for all resource servers.
-
-:: 1. SPA Proxy for Main Server.
+:: Proxy for SPA Server.
 MKDIR "SPA\Proxy\main"
 (
 	ECHO %SPA_Proxy_Host%
@@ -348,54 +337,3 @@ MKDIR "SPA\Proxy\main"
 	IF "%SPA_Proxy_ForbiddenCountryCodes%" EQU "" ( ECHO: ) ELSE ( ECHO %SPA_Proxy_ForbiddenCountryCodes%)
 	ECHO yes
 ) > "SPA\Proxy\main\settings.txt"
-
-:: 2. SPA Proxy for IconDb.
-MKDIR "SPA\Proxy\icon-db"
-(
-	ECHO %SPA_Proxy_Host%
-	ECHO %SPA_Proxy_Port_Icon%
-	ECHO %SPA_Proxy_Work_Mode%
-	ECHO %SPA_Proxy_Certificate%
-	ECHO %SPA_Proxy_Key%
-	ECHO %SPA_Proxy_TTL%
-	IF [%SPA_Proxy_CORS_Host%]==[] ( ECHO: ) ELSE ( ECHO %SPA_Proxy_CORS_Host% )
-	ECHO %SPA_Proxy_Target_Icon%
-	ECHO %SPA_Proxy_IPARC_DbFile%
-	ECHO %SPA_Proxy_AllowUnknownCountries%
-	IF "%SPA_Proxy_ForbiddenCountryCodes%" EQU "" ( ECHO: ) ELSE ( ECHO %SPA_Proxy_ForbiddenCountryCodes%)
-	ECHO no
-) > "SPA\Proxy\icon-db\settings.txt"
-
-:: 3. SPA Proxy for JpegDb.
-MKDIR "SPA\Proxy\jpeg-db"
-(
-	ECHO %SPA_Proxy_Host%
-	ECHO %SPA_Proxy_Port_Jpeg%
-	ECHO %SPA_Proxy_Work_Mode%
-	ECHO %SPA_Proxy_Certificate%
-	ECHO %SPA_Proxy_Key%
-	ECHO %SPA_Proxy_TTL%
-	IF [%SPA_Proxy_CORS_Host%]==[] ( ECHO: ) ELSE ( ECHO %SPA_Proxy_CORS_Host% )
-	ECHO %SPA_Proxy_Target_Jpeg%
-	ECHO %SPA_Proxy_IPARC_DbFile%
-	ECHO %SPA_Proxy_AllowUnknownCountries%
-	IF "%SPA_Proxy_ForbiddenCountryCodes%" EQU "" ( ECHO: ) ELSE ( ECHO %SPA_Proxy_ForbiddenCountryCodes%)
-	ECHO no
-) > "SPA\Proxy\jpeg-db\settings.txt"
-
-:: 4. SPA Proxy for JsonDb.
-MKDIR "SPA\Proxy\json-db"
-(
-	ECHO %SPA_Proxy_Host%
-	ECHO %SPA_Proxy_Port_Json%
-	ECHO %SPA_Proxy_Work_Mode%
-	ECHO %SPA_Proxy_Certificate%
-	ECHO %SPA_Proxy_Key%
-	ECHO %SPA_Proxy_TTL%
-	IF [%SPA_Proxy_CORS_Host%]==[] ( ECHO: ) ELSE ( ECHO %SPA_Proxy_CORS_Host% )
-	ECHO %SPA_Proxy_Target_Json%
-	ECHO %SPA_Proxy_IPARC_DbFile%
-	ECHO %SPA_Proxy_AllowUnknownCountries%
-	IF "%SPA_Proxy_ForbiddenCountryCodes%" EQU "" ( ECHO: ) ELSE ( ECHO %SPA_Proxy_ForbiddenCountryCodes%)
-	ECHO no
-) > "SPA\Proxy\json-db\settings.txt"
