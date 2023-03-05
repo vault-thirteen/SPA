@@ -25,7 +25,7 @@ located in an appropriate sub-folder of the `ReadMe` folder.
   * IPARC library – [ReadMe](https://github.com/vault-thirteen/IPARC)
 
 ## Structural Diagram
-![Structural Diagram](https://github.com/vault-thirteen/SPA/blob/1d1ba25371da661ceebe01edcdb06903ac04220c/Documentation/SPA%20Structural%20Diagram.png)
+![Structural Diagram](https://github.com/vault-thirteen/SPA/blob/839a7b32913de19863bac548de8167c6e5298909/Documentation/SPA%20Structural%20Diagram.png)
 
 ## Installation
 1. Create a new separate folder which will be used as a root folder for your 
