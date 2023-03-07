@@ -1,4 +1,5 @@
 :: Installation script for the SPA bundle ::
+:: Version 0.9.0.
 
 :: Notes.
 ::
@@ -13,6 +14,16 @@
 @ECHO OFF
 
 :: Settings.
+SET GitLink_V13=github.com/vault-thirteen
+SET GitLink_SFRODB_Server=%GitLink_V13%/SFRODB/cmd/server@latest
+SET GitLink_SFRODB_Client=%GitLink_V13%/SFRODB/cmd/client@latest
+SET GitLink_SFHS_Server=%GitLink_V13%/SFHS/cmd/server@latest
+SET GitLink_SPA_Server=%GitLink_V13%/SPA/cmd/spaServer@latest
+SET GitLink_SPA_Proxy=%GitLink_V13%/SPA/cmd/proxy@latest
+SET GitLink_SPA_Hasher=%GitLink_V13%/SPA/cmd/jsonHasher@latest
+SET GitLink_SPA_Indexer=%GitLink_V13%/SPA/cmd/indexer@latest
+
+SET V13_Folder=GOPATH\pkg\mod\github.com\vault-thirteen
 SET TLS_CERT=cert\server-cert.pem
 SET TLS_KEY=cert\server-key.pem
 SET Main_Address=https://localhost
@@ -63,8 +74,6 @@ SET SPA_Indexer_IconServerAddress=%SFHS_Base_CORS_Host%:%SPA_Proxy_Port_Icon%
 SET SPA_Indexer_JpegServerAddress=%SFHS_Base_CORS_Host%:%SPA_Proxy_Port_Jpeg%
 SET SPA_Indexer_JsonServerAddress=%SFHS_Base_CORS_Host%:%SPA_Proxy_Port_Json%
 
-SET V13_Folder=GOPATH\pkg\mod\github.com\vault-thirteen
-
 :: Part I. Get the executable files.
 :Part1
 SETLOCAL DisableDelayedExpansion
@@ -81,32 +90,32 @@ SETLOCAL DisableDelayedExpansion
 	
 	ECHO %GOPATH%
 	MKDIR GOPATH
-	SET GOPATH="%CD%\GOPATH"
+	SET GOPATH=%CD%\GOPATH
 	ECHO %GOPATH%
 	
 	:: SFRODB executable files.
-	go install github.com/vault-thirteen/SFRODB/cmd/server@latest
-	go install github.com/vault-thirteen/SFRODB/cmd/client@latest
+	go install %GitLink_SFRODB_Server%
+	go install %GitLink_SFRODB_Client%
 	MOVE "GOPATH\bin\server.exe" "SFRODB\"
 	MOVE "GOPATH\bin\client.exe" "SFRODB\"
 	
 	:: SFHS executable files.
-	go install github.com/vault-thirteen/SFHS/cmd/server@latest
+	go install %GitLink_SFHS_Server%
 	MOVE "GOPATH\bin\server.exe" "SFHS\"
 	
 	:: SPA executable files.
-	go install github.com/vault-thirteen/SPA/cmd/spaServer@latest
+	go install %GitLink_SPA_Server%
 	RENAME "GOPATH\bin\spaServer.exe" "server.exe"
 	MOVE "GOPATH\bin\server.exe" "SPA\Server\"
 	::
-	go install github.com/vault-thirteen/SPA/cmd/proxy@latest
+	go install %GitLink_SPA_Proxy%
 	MOVE "GOPATH\bin\proxy.exe" "SPA\Proxy\"
 	::
-	go install github.com/vault-thirteen/SPA/cmd/jsonHasher@latest
+	go install %GitLink_SPA_Hasher%
 	RENAME "GOPATH\bin\jsonHasher.exe" "hasher.exe"
 	MOVE "GOPATH\bin\hasher.exe" "SPA\Hasher\"
 	::
-	go install github.com/vault-thirteen/SPA/cmd/indexer@latest
+	go install %GitLink_SPA_Indexer%
 	MOVE "GOPATH\bin\indexer.exe" "SPA\Indexer\"
 	
 	:: Looks like the stupidity was not in the Git. The stupidity is in 
@@ -207,8 +216,6 @@ SET /A DbAuxPort=%SFRODB_Base_Aux_Port% + %PortDelta%
 	ECHO %DbAuxPort%
 	ECHO icon-db\%SFRODB_Data_Folder%
 	ECHO .txt %SFRODB_Cache_Volume_Max% %SFRODB_Item_Volume_Max% %SFRODB_Item_TTL%
-	ECHO icon-db\%SFRODB_Data_Folder%
-	ECHO .jpg %SFRODB_Cache_Volume_Max% %SFRODB_Item_Volume_Max% %SFRODB_Item_TTL%
 ) > "SFRODB\icon-db\settings.txt"
 :: SFHS - IconDb.
 MKDIR "SFHS\icon-db"
@@ -241,8 +248,6 @@ SET /A DbAuxPort=%SFRODB_Base_Aux_Port% + %PortDelta%
 	ECHO %DbAuxPort%
 	ECHO jpeg-db\%SFRODB_Data_Folder%
 	ECHO .txt %SFRODB_Cache_Volume_Max% %SFRODB_Item_Volume_Max% %SFRODB_Item_TTL%
-	ECHO jpeg-db\%SFRODB_Data_Folder%
-	ECHO .jpg %SFRODB_Cache_Volume_Max% %SFRODB_Item_Volume_Max% %SFRODB_Item_TTL%
 ) > "SFRODB\jpeg-db\settings.txt"
 :: SFHS - JpegDb.
 MKDIR "SFHS\jpeg-db"
@@ -275,8 +280,6 @@ SET /A DbAuxPort=%SFRODB_Base_Aux_Port% + %PortDelta%
 	ECHO %DbAuxPort%
 	ECHO json-db\%SFRODB_Data_Folder%
 	ECHO .txt %SFRODB_Cache_Volume_Max% %SFRODB_Item_Volume_Max% %SFRODB_Item_TTL%
-	ECHO json-db\%SFRODB_Data_Folder%
-	ECHO .json %SFRODB_Cache_Volume_Max% %SFRODB_Item_Volume_Max% %SFRODB_Item_TTL%
 ) > "SFRODB\json-db\settings.txt"
 :: SFHS - JsonDb.
 MKDIR "SFHS\json-db"
