@@ -215,7 +215,7 @@ SET /A DbAuxPort=%SFRODB_Base_Aux_Port% + %PortDelta%
 	ECHO %DbMainPort%
 	ECHO %DbAuxPort%
 	ECHO icon-db\%SFRODB_Data_Folder%
-	ECHO .txt %SFRODB_Cache_Volume_Max% %SFRODB_Item_Volume_Max% %SFRODB_Item_TTL%
+	ECHO .jpg %SFRODB_Cache_Volume_Max% %SFRODB_Item_Volume_Max% %SFRODB_Item_TTL%
 ) > "SFRODB\icon-db\settings.txt"
 :: SFHS - IconDb.
 MKDIR "SFHS\icon-db"
@@ -247,7 +247,7 @@ SET /A DbAuxPort=%SFRODB_Base_Aux_Port% + %PortDelta%
 	ECHO %DbMainPort%
 	ECHO %DbAuxPort%
 	ECHO jpeg-db\%SFRODB_Data_Folder%
-	ECHO .txt %SFRODB_Cache_Volume_Max% %SFRODB_Item_Volume_Max% %SFRODB_Item_TTL%
+	ECHO .jpg %SFRODB_Cache_Volume_Max% %SFRODB_Item_Volume_Max% %SFRODB_Item_TTL%
 ) > "SFRODB\jpeg-db\settings.txt"
 :: SFHS - JpegDb.
 MKDIR "SFHS\jpeg-db"
@@ -279,7 +279,7 @@ SET /A DbAuxPort=%SFRODB_Base_Aux_Port% + %PortDelta%
 	ECHO %DbMainPort%
 	ECHO %DbAuxPort%
 	ECHO json-db\%SFRODB_Data_Folder%
-	ECHO .txt %SFRODB_Cache_Volume_Max% %SFRODB_Item_Volume_Max% %SFRODB_Item_TTL%
+	ECHO .json %SFRODB_Cache_Volume_Max% %SFRODB_Item_Volume_Max% %SFRODB_Item_TTL%
 ) > "SFRODB\json-db\settings.txt"
 :: SFHS - JsonDb.
 MKDIR "SFHS\json-db"
