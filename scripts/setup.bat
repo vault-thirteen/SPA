@@ -1,5 +1,5 @@
 :: Installation script for the SPA bundle ::
-:: Version 0.9.0.
+:: Version 0.9.2.
 
 :: Notes.
 ::
@@ -28,8 +28,10 @@ SET TLS_CERT=cert\server-cert.pem
 SET TLS_KEY=cert\server-key.pem
 SET Main_Address=https://localhost
 
-SET SFRODB_Cache_Volume_Max=128000000
-SET SFRODB_Item_Volume_Max=1000000
+SET SFRODB_Common_Cache_Volume_Max=128000000
+SET SFRODB_Icon_Cache_Volume_Max=8000000
+SET SFRODB_Common_Item_Volume_Max=1000000
+SET SFRODB_Icon_Item_Volume_Max=50000
 SET SFRODB_Item_TTL=60
 SET SFRODB_Base_Host=localhost
 SET SFRODB_Base_Main_Port=2000
@@ -215,7 +217,7 @@ SET /A DbAuxPort=%SFRODB_Base_Aux_Port% + %PortDelta%
 	ECHO %DbMainPort%
 	ECHO %DbAuxPort%
 	ECHO icon-db\%SFRODB_Data_Folder%
-	ECHO .jpg %SFRODB_Cache_Volume_Max% %SFRODB_Item_Volume_Max% %SFRODB_Item_TTL%
+	ECHO .jpg %SFRODB_Icon_Cache_Volume_Max% %SFRODB_Icon_Item_Volume_Max% %SFRODB_Item_TTL%
 ) > "SFRODB\icon-db\settings.txt"
 :: SFHS - IconDb.
 MKDIR "SFHS\icon-db"
@@ -247,7 +249,7 @@ SET /A DbAuxPort=%SFRODB_Base_Aux_Port% + %PortDelta%
 	ECHO %DbMainPort%
 	ECHO %DbAuxPort%
 	ECHO jpeg-db\%SFRODB_Data_Folder%
-	ECHO .jpg %SFRODB_Cache_Volume_Max% %SFRODB_Item_Volume_Max% %SFRODB_Item_TTL%
+	ECHO .jpg %SFRODB_Common_Cache_Volume_Max% %SFRODB_Common_Item_Volume_Max% %SFRODB_Item_TTL%
 ) > "SFRODB\jpeg-db\settings.txt"
 :: SFHS - JpegDb.
 MKDIR "SFHS\jpeg-db"
@@ -279,7 +281,7 @@ SET /A DbAuxPort=%SFRODB_Base_Aux_Port% + %PortDelta%
 	ECHO %DbMainPort%
 	ECHO %DbAuxPort%
 	ECHO json-db\%SFRODB_Data_Folder%
-	ECHO .json %SFRODB_Cache_Volume_Max% %SFRODB_Item_Volume_Max% %SFRODB_Item_TTL%
+	ECHO .json %SFRODB_Common_Cache_Volume_Max% %SFRODB_Common_Item_Volume_Max% %SFRODB_Item_TTL%
 ) > "SFRODB\json-db\settings.txt"
 :: SFHS - JsonDb.
 MKDIR "SFHS\json-db"

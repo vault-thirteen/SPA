@@ -42,8 +42,8 @@ installation.
    - Set the domain name in the `Main_Address` variable;
    - Tweak cache settings using following variables if you do not like the 
 default values:
-     - `SFRODB_Cache_Volume_Max`
-     - `SFRODB_Item_Volume_Max`
+     - `SFRODB_Common_Cache_Volume_Max` or `SFRODB_Icon_Cache_Volume_Max`
+     - `SFRODB_Common_Item_Volume_Max` or `SFRODB_Icon_Item_Volume_Max`
      - `SFRODB_Item_TTL`
    - Customize the indexer settings:
      - `SPA_Indexer_TopNewsCount`
