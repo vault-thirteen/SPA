@@ -70,7 +70,7 @@ func NewSettingsFromFile(filePath string) (stn *Settings, err error) {
 		}
 	}()
 
-	rdr := reader.NewReader(file)
+	rdr := reader.New(file)
 	var buf = make([][]byte, 8)
 
 	for i := range buf {
