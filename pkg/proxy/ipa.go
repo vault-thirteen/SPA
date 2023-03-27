@@ -5,9 +5,9 @@ import (
 	"net"
 	"net/http"
 
-	"github.com/vault-thirteen/IPARC/ipa"
 	"github.com/vault-thirteen/IPARC/ipad/country"
 	"github.com/vault-thirteen/IPARC/ipar"
+	"github.com/vault-thirteen/auxie/IPA"
 )
 
 // getClientIPv4AddressRangeNR tries to find the IP v4 address range of the
