@@ -10,8 +10,8 @@ github.com/vault-thirteen/IPARC v0.3.0 h1:pItnYaqgOyXQ81geSQs+mUHiN606N7DOhN6wQF
 github.com/vault-thirteen/IPARC v0.3.0/go.mod h1:M5+xxguZaQonp2VCxTWPzVM9dge95bDc86C5zVx9DsM=
 github.com/vault-thirteen/MIME v1.4.2 h1:2YigCyvm/JhyjayVvqbzoa3GTZ7gNGKmfc0/qua7Gm0=
 github.com/vault-thirteen/MIME v1.4.2/go.mod h1:lAszpOP2si5ADX1891kbghxhrTnFOcB7BRJjijhLnKk=
-github.com/vault-thirteen/Versioneer v0.2.3 h1:TnpZvGGcsYr/SbKLikvMHDflf1B/9PLpFq06N1A9iBw=
-github.com/vault-thirteen/Versioneer v0.2.3/go.mod h1:Xz43/Wfil6nUvkYuTOct4PMBpyN9JlcbXQzT3J5Thys=
+github.com/vault-thirteen/Versioneer v0.3.0 h1:igGEWk9EhaalcyUkvOTs6CFNdC1zbAJlbo11VhYOEqw=
+github.com/vault-thirteen/Versioneer v0.3.0/go.mod h1:Xz43/Wfil6nUvkYuTOct4PMBpyN9JlcbXQzT3J5Thys=
 github.com/vault-thirteen/auxie v0.12.1 h1:poIWeAkmr0n2FnJHsbQWnk547Zat754iz3Xy/Qj384k=
 github.com/vault-thirteen/auxie v0.12.1/go.mod h1:smR3DYfVXHoqynkCkPEa8X47i02QLkuJZUP1ooP2moc=
 github.com/vault-thirteen/errorz v1.1.0 h1:ul4UsZfQWy5p6DZ4bAclQ14I/bm9YnGfAg3q++v5zxg=

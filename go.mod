@@ -5,7 +5,7 @@ go 1.20
 require (
 	github.com/vault-thirteen/IPARC v0.3.0
 	github.com/vault-thirteen/MIME v1.4.2
-	github.com/vault-thirteen/Versioneer v0.2.3
+	github.com/vault-thirteen/Versioneer v0.3.0
 	github.com/vault-thirteen/auxie v0.12.1
 	github.com/vault-thirteen/errorz v1.1.0
 	github.com/vault-thirteen/header v1.1.0
