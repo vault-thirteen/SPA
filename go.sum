@@ -14,8 +14,8 @@ github.com/vault-thirteen/VCS v0.2.0 h1:t1AeSGf1hSAuWJt+ErSCQRS7dLlmld8gpqY+m5nZ
 github.com/vault-thirteen/VCS v0.2.0/go.mod h1:k5lv46CVNWKLYlFHv6SpR72t8jOjccAINK7YmQyiv7g=
 github.com/vault-thirteen/Versioneer v0.5.0 h1:Kym9MY4FgLqQ3B6oi5c4XkGPzZQW4WiV53GMIOkBiR4=
 github.com/vault-thirteen/Versioneer v0.5.0/go.mod h1:eqLx+6MzyTdRWl9BMJAla2fD5X1H5Rgq1l9uCrxNyYY=
-github.com/vault-thirteen/auxie v0.12.2 h1:kV4EEVy3BM//P+bZ3IaNNB4Vy3YybRWxfpT03pz0gtw=
-github.com/vault-thirteen/auxie v0.12.2/go.mod h1:smR3DYfVXHoqynkCkPEa8X47i02QLkuJZUP1ooP2moc=
+github.com/vault-thirteen/auxie v0.12.3 h1:tm9TaC1YqJtcaxIIVtOv8QATnpRglZ7QmUTNOMdUC2w=
+github.com/vault-thirteen/auxie v0.12.3/go.mod h1:YEKV8o8I13yVggA26H13AOGbw1BJKYtmcoYT+Gy41Ts=
 github.com/vault-thirteen/errorz v1.1.0 h1:ul4UsZfQWy5p6DZ4bAclQ14I/bm9YnGfAg3q++v5zxg=
 github.com/vault-thirteen/errorz v1.1.0/go.mod h1:EEqZH4OZWTXG14ZZSPFI7nzDqVMwWljDybNB9oY1zec=
 github.com/vault-thirteen/header v1.1.0 h1:1g0nDJP235AE+QG/GfFKfwhjd2ktNrRrgGcEz2q1Y2Y=
