@@ -3,7 +3,7 @@ module github.com/vault-thirteen/SPA
 go 1.20
 
 require (
-	github.com/vault-thirteen/IPARC v0.3.4
+	github.com/vault-thirteen/IPARC v0.4.0
 	github.com/vault-thirteen/MIME v1.6.0
 	github.com/vault-thirteen/Versioneer v0.6.1
 	github.com/vault-thirteen/auxie v0.12.4
