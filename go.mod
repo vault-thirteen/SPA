@@ -3,12 +3,12 @@ module github.com/vault-thirteen/SPA
 go 1.20
 
 require (
-	github.com/vault-thirteen/IPARC v0.4.0
-	github.com/vault-thirteen/MIME v1.6.0
+	github.com/vault-thirteen/IPARC v0.5.2
+	github.com/vault-thirteen/MIME v1.7.0
 	github.com/vault-thirteen/Versioneer v0.6.2
-	github.com/vault-thirteen/auxie v0.12.4
+	github.com/vault-thirteen/auxie v0.12.5
 	github.com/vault-thirteen/errorz v1.1.0
-	github.com/vault-thirteen/header v1.1.0
+	github.com/vault-thirteen/header v1.2.0
 )
 
 require (
