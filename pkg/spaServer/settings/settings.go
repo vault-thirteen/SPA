@@ -5,8 +5,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/vault-thirteen/SPA/pkg/common/helper"
 	af "github.com/vault-thirteen/auxie/file"
+	"github.com/vault-thirteen/auxie/number"
 	"github.com/vault-thirteen/auxie/reader"
 	"github.com/vault-thirteen/errorz"
 )
@@ -95,7 +95,7 @@ func NewSettingsFromFile(filePath string) (stn *Settings, err error) {
 	// Server Host & Port.
 	stn.ServerHost = strings.TrimSpace(string(buf[0]))
 
-	stn.ServerPort, err = helper.ParseUint16(strings.TrimSpace(string(buf[1])))
+	stn.ServerPort, err = number.ParseUint16(strings.TrimSpace(string(buf[1])))
 	if err != nil {
 		return stn, err
 	}
@@ -113,7 +113,7 @@ func NewSettingsFromFile(filePath string) (stn *Settings, err error) {
 	stn.CertFile = strings.TrimSpace(string(buf[3]))
 	stn.KeyFile = strings.TrimSpace(string(buf[4]))
 
-	stn.HttpCacheControlMaxAge, err = helper.ParseUint(strings.TrimSpace(string(buf[5])))
+	stn.HttpCacheControlMaxAge, err = number.ParseUint(strings.TrimSpace(string(buf[5])))
 	if err != nil {
 		return stn, err
 	}

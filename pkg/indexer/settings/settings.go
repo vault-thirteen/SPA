@@ -5,8 +5,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/vault-thirteen/SPA/pkg/common/helper"
 	"github.com/vault-thirteen/auxie/boolean"
+	"github.com/vault-thirteen/auxie/number"
 	"github.com/vault-thirteen/auxie/reader"
 	"github.com/vault-thirteen/errorz"
 )
@@ -96,7 +96,7 @@ func NewSettingsFromFile(filePath string) (stn *Settings, err error) {
 		return stn, err
 	}
 
-	stn.TopNewsCount, err = helper.ParseInt(strings.TrimSpace(string(buf[3])))
+	stn.TopNewsCount, err = number.ParseInt(strings.TrimSpace(string(buf[3])))
 	if err != nil {
 		return stn, err
 	}
