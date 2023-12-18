@@ -6,7 +6,7 @@ require (
 	github.com/vault-thirteen/IPARC v0.12.0
 	github.com/vault-thirteen/MIME v1.11.1
 	github.com/vault-thirteen/Versioneer v0.10.1
-	github.com/vault-thirteen/auxie v0.15.2
+	github.com/vault-thirteen/auxie v0.16.0
 	github.com/vault-thirteen/errorz v1.2.0
 	github.com/vault-thirteen/header v1.4.0
 )
