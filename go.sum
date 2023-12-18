@@ -8,8 +8,8 @@ github.com/rogpeppe/go-internal v1.9.0 h1:73kH8U+JUqXU8lRuOHeVHaa/SZPifC7BkcraZV
 github.com/rogpeppe/go-internal v1.9.0/go.mod h1:WtVeX8xhTBvf0smdhujwtBcq4Qrzq/fJaraNFVN+nFs=
 github.com/vault-thirteen/IPARC v0.12.0 h1:Y3YPOF71iahqOYSZRFPlFjydvxFPnaA2o1KxMvKobRo=
 github.com/vault-thirteen/IPARC v0.12.0/go.mod h1:ECHHsjLDjNyXUUtSkYlb02mbmrYIoQoqJ9wmz55cyjQ=
-github.com/vault-thirteen/MIME v1.10.0 h1:+K+H8a8MgB8VLQdKRzExucjejsaI2sNipaz9cHkYFcg=
-github.com/vault-thirteen/MIME v1.10.0/go.mod h1:t/VAI4mg2/s0XwQ097hNWTKKw2B/LL93QzhV5tXjPGw=
+github.com/vault-thirteen/MIME v1.11.1 h1:UYoTb+pMn31o6TvAaIDxApPOPr7m9FWf97YByP6NaUc=
+github.com/vault-thirteen/MIME v1.11.1/go.mod h1:5+/Bf7SREg5+gfIkfOcS1FZEBRCSTUfuk7gmjBk2TzI=
 github.com/vault-thirteen/VCS v0.6.1 h1:F2KZ9yEs4qLnf07LDiLNmY/kbtX+354ULVML3zNUspc=
 github.com/vault-thirteen/VCS v0.6.1/go.mod h1:/QbKAlyw+hjlpW7415kPCQQ0lM/+BgQMI3wlakeHByQ=
 github.com/vault-thirteen/Versioneer v0.10.1 h1:P4XYrQ0hzltu9hWSgDUTs/fUgAmtrNnKdWPvOwzVPXs=
