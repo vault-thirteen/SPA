@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"path/filepath"
 
-	"github.com/vault-thirteen/MIME"
+	"github.com/vault-thirteen/auxie/MIME"
 )
 
 const (

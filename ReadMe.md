@@ -1,6 +1,7 @@
 # SPA
 
-An HTTP server for a single page application in JavaScript and related tools.
+An _HTTP_ server for a single page application in _JavaScript_ and related 
+tools.
 
 For more information about each component see each component's ReadMe file 
 located in an appropriate sub-folder of the `ReadMe` folder.
@@ -8,8 +9,8 @@ located in an appropriate sub-folder of the `ReadMe` folder.
 ## Components
 * SPA Server
 * An example of a page loader and router written in JavaScript
-* Complementary reference files (CSS style sheet, etc.) 
-* CRC32 hash tool for JSON files
+* Complementary reference files (_CSS_ style sheet, etc.) 
+* CRC32 hash tool for _JSON_ files
 * Indexer
 * Reverse Proxy Server
 * Other components (external)
@@ -20,9 +21,9 @@ located in an appropriate sub-folder of the `ReadMe` folder.
 * Indexer – [ReadMe](ReadMe/indexer/ReadMe.md)
 * Reverse Proxy Server – [ReadMe](ReadMe/proxy/ReadMe.md)
 * External components:
-  * SFRODB database – [ReadMe](https://github.com/vault-thirteen/SFRODB)
-  * SFHS interface – [ReadMe](https://github.com/vault-thirteen/SFHS)
-  * IPARC library – [ReadMe](https://github.com/vault-thirteen/IPARC)
+  * _SFRODB_ database – [ReadMe](https://github.com/vault-thirteen/SFRODB)
+  * _SFHS_ interface – [ReadMe](https://github.com/vault-thirteen/SFHS)
+  * _IPARC_ library – [ReadMe](https://github.com/vault-thirteen/IPARC)
 
 ## Structural Diagram
 ![Structural Diagram](https://github.com/vault-thirteen/SPA/blob/839a7b32913de19863bac548de8167c6e5298909/Documentation/SPA%20Structural%20Diagram.png)
@@ -50,12 +51,12 @@ default values:
    - All other settings should not be touched as they are there for a reason.
 
 
-4. Run the setup script and ensure than no errors occur. It may happen that Go 
+4. Run the setup script and ensure than no errors occur. It may happen that _Go_ 
 language changes in future and this script stops working. The reasons are 
 stated inside the setup script as comments.
 
 
-5. Either copy your SSL/TLS certificates into the `SPA\Proxy\cert` folder if you 
+5. Either copy your _SSL/TLS_ certificates into the `SPA\Proxy\cert` folder if you 
 already have them, or run the `create-certificates.bat` script located at 
 `SPA\Proxy` which will automatically create and place your self-signed 
 certificates into the `cert` folder.

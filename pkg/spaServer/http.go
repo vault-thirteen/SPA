@@ -4,8 +4,8 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/vault-thirteen/MIME"
-	hdr "github.com/vault-thirteen/header"
+	"github.com/vault-thirteen/auxie/MIME"
+	hdr "github.com/vault-thirteen/auxie/header"
 )
 
 const IndexPageHdrContentType = mime.TypeTextHtml + "; charset=UTF-8"

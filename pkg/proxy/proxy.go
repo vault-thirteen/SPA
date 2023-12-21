@@ -7,7 +7,7 @@ import (
 	"net/http/httputil"
 	"net/url"
 
-	"github.com/vault-thirteen/header"
+	"github.com/vault-thirteen/auxie/header"
 )
 
 func (srv *Server) newProxy(targetHost string) (*httputil.ReverseProxy, error) {

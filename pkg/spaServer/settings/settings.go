@@ -5,10 +5,10 @@ import (
 	"os"
 	"strings"
 
+	ae "github.com/vault-thirteen/auxie/errors"
 	af "github.com/vault-thirteen/auxie/file"
 	"github.com/vault-thirteen/auxie/number"
 	"github.com/vault-thirteen/auxie/reader"
-	"github.com/vault-thirteen/errorz"
 )
 
 const (
@@ -78,7 +78,7 @@ func NewSettingsFromFile(filePath string) (stn *Settings, err error) {
 	defer func() {
 		derr := file.Close()
 		if derr != nil {
-			err = errorz.Combine(err, derr)
+			err = ae.Combine(err, derr)
 		}
 	}()
 
