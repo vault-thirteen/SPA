@@ -22,7 +22,7 @@ located in an appropriate sub-folder of the `ReadMe` folder.
 * Reverse Proxy Server – [ReadMe](ReadMe/proxy/ReadMe.md)
 * External components:
   * _SFRODB_ database – [ReadMe](https://github.com/vault-thirteen/SFRODB)
-  * _SFHS_ interface – [ReadMe](https://github.com/vault-thirteen/SFHS)
+  * _SFHS_ interface – [ReadMe](https://github.com/vault-thirteen/SFRODB)
   * _IPARC_ library – [ReadMe](https://github.com/vault-thirteen/IPARC)
 
 ## Structural Diagram

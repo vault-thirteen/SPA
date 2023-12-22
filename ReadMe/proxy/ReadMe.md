@@ -1,6 +1,6 @@
 # Proxy
 
-A Reverse Proxy Server for the SPA Server.
+A Reverse Proxy Server for the _SPA_ Server.
 
 ## Building
 Use the `build.bat` script included with the source code.

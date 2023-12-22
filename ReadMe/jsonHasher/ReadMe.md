@@ -25,7 +25,7 @@ polynomial.
 
 Why not _MD_ or _SHA_ ?  
 _CRC_ is very fast and is still quite good for small amounts of data.  
-_CRC32_ is very easy to be implemented in JavaScript on the web browser's side.
+_CRC32_ is very easy to be implemented in _JavaScript_ on the web browser's side.
 
 ## Building
 

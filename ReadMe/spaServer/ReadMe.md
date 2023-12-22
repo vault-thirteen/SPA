@@ -43,13 +43,13 @@ as a separator between parameters. Described below are meanings of each line.
 7. Allowed origin for _HTTP_ CORS, i.e. value of the 
 `Access-Control-Allow-Origin` _HTTP_ header.
 8. List of the cached files related to the _JavaScript_ single page 
-application, except the index HTML page which is hardcoded – a _JavaScript_ 
+application, except the index _HTML_ page which is hardcoded – a _JavaScript_ 
 loader script, a _CSS_ style sheet and a favicon file.
 
 **Notes:**  
-This server is an SPA server. This means that it does not serve ordinary 
+This server is an _SPA_ server. This means that it does not serve ordinary 
 data files having the contents of the whole website. It serves only those files 
-which are required to start the _JavaScript_ SPA itself and no more.
+which are required to start the _JavaScript_ _SPA_ itself and no more.
 
 ## Links Format
 
