@@ -7,7 +7,7 @@ For more information about each component see each component's ReadMe file
 located in an appropriate sub-folder of the `ReadMe` folder.
 
 ## Components
-* SPA Server
+* _SPA_ Server
 * An example of a page loader and router written in _JavaScript_
 * Complementary reference files (_CSS_ style sheet, etc.) 
 * _CRC32_ hash tool for _JSON_ files
@@ -16,7 +16,7 @@ located in an appropriate sub-folder of the `ReadMe` folder.
 * Other components (external)
 
 ### Components' ReadMe Files
-* SPA Server – [ReadMe](ReadMe/spaServer/ReadMe.md)
+* _SPA_ Server – [ReadMe](ReadMe/spaServer/ReadMe.md)
 * _CRC32_ hash tool for _JSON_ files – [ReadMe](ReadMe/jsonHasher/ReadMe.md)
 * Indexer – [ReadMe](ReadMe/indexer/ReadMe.md)
 * Reverse Proxy Server – [ReadMe](ReadMe/proxy/ReadMe.md)
@@ -61,7 +61,7 @@ stated inside the setup script as comments.
 5. Get the _SSL/TLS_ certificates. This can be done in several different ways.
    - You may have them stored somewhere already. Then copy them into the 
 `SPA\Proxy\cert` folder.
-   - You may want to `cd` to the `SPA\Proxy\cert` folder and run the 
+   - You may want to `cd` to the `SPA\Proxy` folder and run the 
 `create-certificates.bat` script from there.
    - You may want to create certificates in the root folder and move them by 
 running `create-certificates.bat` and then `move-certificates.bat` from the 
