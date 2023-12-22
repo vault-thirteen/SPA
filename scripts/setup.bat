@@ -1,5 +1,4 @@
 :: Installation script for the SPA bundle ::
-:: Version 0.22.0.
 
 :: Notes.
 ::
