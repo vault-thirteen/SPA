@@ -34,6 +34,8 @@ installation.
 
 
 2. Copy following scripts from the `scripts` folder into this root folder:
+   - `create-certificates.bat`
+   - `move-certificates.bat`
    - `setup.bat`
    - `start.bat`
    - `stop.bat`
@@ -56,10 +58,14 @@ language changes in future and this script stops working. The reasons are
 stated inside the setup script as comments.
 
 
-5. Either copy your _SSL/TLS_ certificates into the `SPA\Proxy\cert` folder if you 
-already have them, or run the `create-certificates.bat` script located at 
-`SPA\Proxy` which will automatically create and place your self-signed 
-certificates into the `cert` folder.
+5. Get the _SSL/TLS_ certificates. This can be done in several different ways.
+   - You may have them stored somewhere already. Then copy them into the 
+`SPA\Proxy\cert` folder.
+   - You may want to `cd` to the `SPA\Proxy\cert` folder and run the 
+`create-certificates.bat` script from there.
+   - You may want to create certificates in the root folder and move them by 
+running `create-certificates.bat` and then `move-certificates.bat` from the 
+root folder. 
 
 
 6. Fill all the data folders with your own content. 
