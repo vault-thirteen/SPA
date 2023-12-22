@@ -25,4 +25,5 @@ start. Due to complexity of _Batch_ scripts in _Windows_ O.S., not all errors
 are checked in the starter script, so be careful with the execution order.
 
 In order to use the `create-certificates.bat` script, you need to have 
-_OpenSSL_ installed and reachable in your `PATH` environmental variable.
+_OpenSSL_ installed and reachable in your `PATH` environmental variable. 
+OpenSSL is available here: https://www.openssl.org
