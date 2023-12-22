@@ -77,9 +77,13 @@ SET SPA_Indexer_IconServerAddress=%SFHS_Base_CORS_Host%:%SPA_Proxy_Port_Icon%
 SET SPA_Indexer_JpegServerAddress=%SFHS_Base_CORS_Host%:%SPA_Proxy_Port_Jpeg%
 SET SPA_Indexer_JsonServerAddress=%SFHS_Base_CORS_Host%:%SPA_Proxy_Port_Json%
 
+:: Part 0. Notes.
+ECHO [91m[!] For some reason Windows Defender can sometimes think that an HTTP server, database server or a proxy server is a virus. Of course, this not true, and you can check all the source code of all the servers. If the antivirus decides that an HTTP server is a virus, open the list of latest scans and allow the latest quarantined compiled executable files, then re-use the script again. [!][0m
+
 :: Part I. Get the executable files.
 :Part1
 SETLOCAL DisableDelayedExpansion
+    ECHO Preparing Folders ...
 	MKDIR "SFHS"
 	MKDIR "SFRODB"
 	MKDIR "SPA"
@@ -97,27 +101,34 @@ SETLOCAL DisableDelayedExpansion
 	ECHO %GOPATH%
 	
 	:: SFRODB executable files.
+	ECHO Installing SFRODB Server ...
 	go install %GitLink_SFRODB_Server%
+	ECHO Installing SFRODB Client ...
 	go install %GitLink_SFRODB_Client%
 	MOVE "GOPATH\bin\server.exe" "SFRODB\"
 	MOVE "GOPATH\bin\client.exe" "SFRODB\"
 	
 	:: SFHS executable files.
+	ECHO Installing SFHS Server ...
 	go install %GitLink_SFHS_Server%
 	MOVE "GOPATH\bin\server.exe" "SFHS\"
 	
 	:: SPA executable files.
+	ECHO Installing SPA Server ...
 	go install %GitLink_SPA_Server%
 	RENAME "GOPATH\bin\spaServer.exe" "server.exe"
 	MOVE "GOPATH\bin\server.exe" "SPA\Server\"
 	::
+	ECHO Installing SPA Proxy ...
 	go install %GitLink_SPA_Proxy%
 	MOVE "GOPATH\bin\proxy.exe" "SPA\Proxy\"
 	::
+	ECHO Installing SPA Hasher ...
 	go install %GitLink_SPA_Hasher%
 	RENAME "GOPATH\bin\jsonHasher.exe" "hasher.exe"
 	MOVE "GOPATH\bin\hasher.exe" "SPA\Hasher\"
 	::
+	ECHO Installing SPA Indexer ...
 	go install %GitLink_SPA_Indexer%
 	MOVE "GOPATH\bin\indexer.exe" "SPA\Indexer\"
 	
