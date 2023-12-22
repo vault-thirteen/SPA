@@ -15,9 +15,10 @@
 
 :: Settings.
 SET GitLink_V13=github.com/vault-thirteen
-SET GitLink_SFRODB_Server=%GitLink_V13%/SFRODB/cmd/server@latest
-SET GitLink_SFRODB_Client=%GitLink_V13%/SFRODB/cmd/client@latest
-SET GitLink_SFHS_Server=%GitLink_V13%/SFHS/cmd/server@latest
+SET GitLink_SFRODB_Server=%GitLink_V13%/SFRODB/cmd/SFRODB/server@latest
+SET GitLink_SFRODB_Client=%GitLink_V13%/SFRODB/cmd/SFRODB/client@latest
+:: Note that 'SFHS' is now merged into the 'SFRODB' repository.
+SET GitLink_SFHS_Server=%GitLink_V13%/SFRODB/cmd/SFHS/server@latest
 SET GitLink_SPA_Server=%GitLink_V13%/SPA/cmd/spaServer@latest
 SET GitLink_SPA_Proxy=%GitLink_V13%/SPA/cmd/proxy@latest
 SET GitLink_SPA_Hasher=%GitLink_V13%/SPA/cmd/jsonHasher@latest

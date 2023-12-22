@@ -17,9 +17,9 @@ Use the `build.bat` script included with the source code.
 
 Example:
 
-`tool.exe soft settings.txt`  
-`tool.exe news settings.txt`  
-`tool.exe tech`  
+`indexer.exe soft settings.txt`  
+`indexer.exe news settings.txt`  
+`indexer.exe tech`  
 
 **Notes:**  
 If the path to a configuration file is omitted, the default one is used.  

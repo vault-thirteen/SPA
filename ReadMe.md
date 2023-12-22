@@ -8,16 +8,16 @@ located in an appropriate sub-folder of the `ReadMe` folder.
 
 ## Components
 * SPA Server
-* An example of a page loader and router written in JavaScript
+* An example of a page loader and router written in _JavaScript_
 * Complementary reference files (_CSS_ style sheet, etc.) 
-* CRC32 hash tool for _JSON_ files
+* _CRC32_ hash tool for _JSON_ files
 * Indexer
 * Reverse Proxy Server
 * Other components (external)
 
 ### Components' ReadMe Files
 * SPA Server – [ReadMe](ReadMe/spaServer/ReadMe.md)
-* CRC32 hash tool for JSON files – [ReadMe](ReadMe/jsonHasher/ReadMe.md)
+* _CRC32_ hash tool for _JSON_ files – [ReadMe](ReadMe/jsonHasher/ReadMe.md)
 * Indexer – [ReadMe](ReadMe/indexer/ReadMe.md)
 * Reverse Proxy Server – [ReadMe](ReadMe/proxy/ReadMe.md)
 * External components:

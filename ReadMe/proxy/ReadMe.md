@@ -31,20 +31,20 @@ as a separator between parameters. Described below are meanings of each line.
 
 1. Server's hostname.
 2. Server's listen port.
-3. Work mode: HTTP or HTTPS.
-4. Path to the certificate file for the HTTPS work mode.
-5. Path to the key file for the HTTPS work mode.
+3. Work mode: _HTTP_ or _HTTPS_.
+4. Path to the certificate file for the _HTTPS_ work mode.
+5. Path to the key file for the _HTTPS_ work mode.
 6. TTL of served files, i.e. value of the `max-age` field of the
-   `Cache-Control` HTTP header.
-7. Allowed origin for HTTP CORS, i.e. value of the
-   `Access-Control-Allow-Origin` HTTP header.
+   `Cache-Control` _HTTP_ header.
+7. Allowed origin for _HTTP_ CORS, i.e. value of the
+   `Access-Control-Allow-Origin` _HTTP_ header.
 8. Address of the target server.
-9. Path to the IPARC database file.
+9. Path to the _IPARC_ database file.
 10. Boolean flag showing that unknown countries should be allowed.
 11. Comma separated list of two-letter codes of forbidden countries.
 12. Boolean flag showing that server is the main proxy server.
 
 ## HTTP Headers
-* The built-in reverse proxy server automatically sets the `X-Forwarded-For` HTTP 
-header to contain the client's IP address.
-* Client's country code is written to the `X-ClientCountryCode` HTTP header.
+* The built-in reverse proxy server automatically sets the `X-Forwarded-For` 
+_HTTP_ header to contain the client's IP address.
+* Client's country code is written to the `X-ClientCountryCode` _HTTP_ header.
