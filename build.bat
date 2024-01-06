@@ -22,6 +22,7 @@ MKDIR "%build_dir%\%spa_rp_server_dir%"
 :: Build the SPA Server.
 CD "%exe_dir%\%spa_server_dir%"
 go build
+IF %Errorlevel% NEQ 0 EXIT /b %Errorlevel%
 MOVE "%spa_server_dir%.exe" ".\..\..\%build_dir%\%spa_server_dir%\"
 CD ".\..\..\"
 
@@ -37,12 +38,14 @@ COPY "%assets_folder%\styles.css" "%build_dir%\%spa_server_dir%\"
 :: Build the CRC32 JSON Hasher.
 CD "%exe_dir%\%json_hasher_dir%"
 go build
+IF %Errorlevel% NEQ 0 EXIT /b %Errorlevel%
 MOVE "%json_hasher_dir%.exe" ".\..\..\%build_dir%\%tools_folder%\%json_hasher_dir%\"
 CD ".\..\..\"
 
 :: Build the Indexer.
 CD "%exe_dir%\%indexer_dir%"
 go build
+IF %Errorlevel% NEQ 0 EXIT /b %Errorlevel%
 MOVE "%indexer_dir%.exe" ".\..\..\%build_dir%\%tools_folder%\%indexer_dir%\"
 CD ".\..\..\"
 
@@ -52,8 +55,11 @@ COPY "%exe_dir%\%indexer_dir%\%settings_file%" "%build_dir%\%tools_folder%\%inde
 :: Build the SPA Reverse Proxy Server.
 CD "%exe_dir%\%spa_rp_server_dir%"
 go build
+IF %Errorlevel% NEQ 0 EXIT /b %Errorlevel%
 MOVE "%spa_rp_server_dir%.exe" ".\..\..\%build_dir%\%spa_rp_server_dir%\"
 CD ".\..\..\"
 
 :: Copy some additional files for the server.
 COPY "%exe_dir%\%spa_rp_server_dir%\%settings_file%" "%build_dir%\%spa_rp_server_dir%\"
+
+ECHO SUCCESSFUL BUILD

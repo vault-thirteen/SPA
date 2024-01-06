@@ -102,33 +102,40 @@ SETLOCAL DisableDelayedExpansion
 	:: SFRODB executable files.
 	ECHO Installing SFRODB Server ...
 	go install %GitLink_SFRODB_Server%
+	IF %Errorlevel% NEQ 0 EXIT /b %Errorlevel%
 	ECHO Installing SFRODB Client ...
 	go install %GitLink_SFRODB_Client%
+	IF %Errorlevel% NEQ 0 EXIT /b %Errorlevel%
 	MOVE "GOPATH\bin\server.exe" "SFRODB\"
 	MOVE "GOPATH\bin\client.exe" "SFRODB\"
 	
 	:: SFHS executable files.
 	ECHO Installing SFHS Server ...
 	go install %GitLink_SFHS_Server%
+	IF %Errorlevel% NEQ 0 EXIT /b %Errorlevel%
 	MOVE "GOPATH\bin\server.exe" "SFHS\"
 	
 	:: SPA executable files.
 	ECHO Installing SPA Server ...
 	go install %GitLink_SPA_Server%
+	IF %Errorlevel% NEQ 0 EXIT /b %Errorlevel%
 	RENAME "GOPATH\bin\spaServer.exe" "server.exe"
 	MOVE "GOPATH\bin\server.exe" "SPA\Server\"
 	::
 	ECHO Installing SPA Proxy ...
 	go install %GitLink_SPA_Proxy%
+	IF %Errorlevel% NEQ 0 EXIT /b %Errorlevel%
 	MOVE "GOPATH\bin\proxy.exe" "SPA\Proxy\"
 	::
 	ECHO Installing SPA Hasher ...
 	go install %GitLink_SPA_Hasher%
+	IF %Errorlevel% NEQ 0 EXIT /b %Errorlevel%
 	RENAME "GOPATH\bin\jsonHasher.exe" "hasher.exe"
 	MOVE "GOPATH\bin\hasher.exe" "SPA\Hasher\"
 	::
 	ECHO Installing SPA Indexer ...
 	go install %GitLink_SPA_Indexer%
+	IF %Errorlevel% NEQ 0 EXIT /b %Errorlevel%
 	MOVE "GOPATH\bin\indexer.exe" "SPA\Indexer\"
 	
 	:: Looks like the stupidity was not in the Git. The stupidity is in 
@@ -353,3 +360,5 @@ MKDIR "SPA\Proxy\main"
 	IF "%SPA_Proxy_ForbiddenCountryCodes%" EQU "" ( ECHO: ) ELSE ( ECHO %SPA_Proxy_ForbiddenCountryCodes%)
 	ECHO yes
 ) > "SPA\Proxy\main\settings.txt"
+
+ECHO SUCCESSFUL SETUP
