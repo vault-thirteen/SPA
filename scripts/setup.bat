@@ -299,7 +299,7 @@ SET /A DbAuxPort=%SFRODB_Base_Aux_Port% + %PortDelta%
 	ECHO %DbMainPort%
 	ECHO %DbAuxPort%
 	ECHO json-db\%SFRODB_Data_Folder%
-	ECHO .json %SFRODB_Common_Cache_Volume_Max% %SFRODB_Common_Item_Volume_Max% %SFRODB_Item_TTL%
+	ECHO json %SFRODB_Common_Cache_Volume_Max% %SFRODB_Common_Item_Volume_Max% %SFRODB_Item_TTL%
 ) > "SFRODB\json-db\settings.txt"
 :: SFHS - JsonDb.
 MKDIR "SFHS\json-db"
@@ -314,7 +314,7 @@ SET /A SFHS_Port=%SFHS_Base_Port% + %PortDelta%
 	ECHO %DbMainPort%
 	ECHO %DbAuxPort%
 	ECHO %SFHS_Base_Db_Client_Pool_Size%
-	ECHO .json
+	ECHO json
 	ECHO application/json
 	ECHO %SFHS_Base_TTL%
 	ECHO %SFHS_Base_CORS_Host%
