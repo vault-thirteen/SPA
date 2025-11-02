@@ -65,8 +65,8 @@ SET SPA_Proxy_TTL=%SFHS_Base_TTL%
 SET SPA_Proxy_CORS_Host=%Main_Address%
 SET SPA_Proxy_Target_Main=http://localhost:8000
 SET SPA_Proxy_IPARC_DbFile=data\db\DB-1.csv.zip
-SET SPA_Proxy_AllowUnknownCountries=no
-SET SPA_Proxy_ForbiddenCountryCodes=CN,RU,BY,IR,KP
+SET SPA_Proxy_AllowUnknownCountries=yes
+SET SPA_Proxy_ForbiddenCountryCodes=
 
 SET SPA_Indexer_CategoryPaths=event, game, hard, life, media, motor, news, review, soft, tech
 SET SPA_Indexer_ShouldCreateCategoryFolder=yes
