@@ -7,7 +7,7 @@ import (
 
 	"github.com/vault-thirteen/SPA/pkg/common/models"
 	"github.com/vault-thirteen/SPA/pkg/jsonHasher/cla"
-	ver "github.com/vault-thirteen/auxie/Versioneer"
+	ver "github.com/vault-thirteen/auxie/Versioneer/classes/Versioneer"
 )
 
 func mustBeNoError(err error) {

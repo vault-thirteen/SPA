@@ -10,7 +10,7 @@ import (
 
 	"github.com/vault-thirteen/SPA/pkg/spaServer"
 	"github.com/vault-thirteen/SPA/pkg/spaServer/settings"
-	"github.com/vault-thirteen/auxie/Versioneer"
+	ver "github.com/vault-thirteen/auxie/Versioneer/classes/Versioneer"
 )
 
 func main() {

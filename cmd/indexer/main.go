@@ -8,7 +8,7 @@ import (
 	"github.com/vault-thirteen/SPA/cmd/indexer/cla"
 	"github.com/vault-thirteen/SPA/pkg/common/models"
 	"github.com/vault-thirteen/SPA/pkg/indexer"
-	"github.com/vault-thirteen/auxie/Versioneer"
+	ver "github.com/vault-thirteen/auxie/Versioneer/classes/Versioneer"
 )
 
 func main() {

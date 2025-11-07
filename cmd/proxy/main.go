@@ -10,7 +10,7 @@ import (
 
 	server "github.com/vault-thirteen/SPA/pkg/proxy"
 	"github.com/vault-thirteen/SPA/pkg/proxy/settings"
-	"github.com/vault-thirteen/auxie/Versioneer"
+	ver "github.com/vault-thirteen/auxie/Versioneer/classes/Versioneer"
 )
 
 func main() {
