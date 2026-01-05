@@ -7,7 +7,7 @@ github.com/pkg/diff v0.0.0-20210226163009-20ebb0f2a09e/go.mod h1:pJLUxLENpZxwdsK
 github.com/rogpeppe/go-internal v1.9.0/go.mod h1:WtVeX8xhTBvf0smdhujwtBcq4Qrzq/fJaraNFVN+nFs=
 github.com/rogpeppe/go-internal v1.14.1 h1:UQB4HGPB6osV0SQTLymcB4TgvyWu6ZyliaW0tI/otEQ=
 github.com/rogpeppe/go-internal v1.14.1/go.mod h1:MaRKkUm5W0goXpeCfT7UZI6fk/L7L7so1lCWt35ZSgc=
-github.com/vault-thirteen/IPARC v0.18.11 h1:F2NP5iwJ7vf1Gb4z9cwBK+eSKUeqQZQpty5P37Lt1/w=
-github.com/vault-thirteen/IPARC v0.18.11/go.mod h1:/q6OesH3W6tyJ4e5hFHSPKxrJHXOFv+Dt3Up83VLKhE=
-github.com/vault-thirteen/auxie v0.30.0 h1:zf9ns5gO648FJD7mmNhFW4M89+RjsEXeFKz2uVLhNIA=
-github.com/vault-thirteen/auxie v0.30.0/go.mod h1:yhrVNOrrnjFfah2oqQNGKmqbXjgkKLpZiZ0lKAWWjvE=
+github.com/vault-thirteen/IPARC v0.18.12 h1:5MkaBsre32mtBqOeoR5l444WaMEJZSgrYCIkO9j0vRE=
+github.com/vault-thirteen/IPARC v0.18.12/go.mod h1:Aubme/HJjPFNnm+29xxVm17it+J/YBWwJ8knuuWewMQ=
+github.com/vault-thirteen/auxie v0.31.1 h1:BfXXSLlVBeBsEMdD6Iv0wN4Fd0z+uU1BPjyQTNxI0TY=
+github.com/vault-thirteen/auxie v0.31.1/go.mod h1:gpMrrQ2O8lirj2gKRa4Mihkll4kDfeL8stK0SHRgbr4=
