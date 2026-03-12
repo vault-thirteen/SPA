@@ -1,10 +1,10 @@
 module github.com/vault-thirteen/SPA
 
-go 1.24.12
+go 1.25.8
 
 require (
-	github.com/vault-thirteen/IPARC v0.18.13
-	github.com/vault-thirteen/auxie v0.31.2
+	github.com/vault-thirteen/IPARC v0.18.14
+	github.com/vault-thirteen/auxie v0.31.3
 )
 
 require (
