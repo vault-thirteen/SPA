@@ -5,9 +5,10 @@ import (
 	"log"
 	"os"
 
+	ver "github.com/vault-thirteen/auxie/Versioneer/classes/Versioneer"
+
 	"github.com/vault-thirteen/SPA/pkg/common/models"
 	"github.com/vault-thirteen/SPA/pkg/jsonHasher/cla"
-	ver "github.com/vault-thirteen/auxie/Versioneer/classes/Versioneer"
 )
 
 func mustBeNoError(err error) {
@@ -52,7 +53,7 @@ func main() {
 }
 
 func showIntro() {
-	versioneer, err := ver.New()
+	versioneer, err := ver.New(false)
 	mustBeNoError(err)
 	versioneer.ShowIntroText("Hasher")
 	versioneer.ShowComponentsInfoText()

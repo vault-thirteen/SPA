@@ -5,10 +5,11 @@ import (
 	"log"
 	"os"
 
+	ver "github.com/vault-thirteen/auxie/Versioneer/classes/Versioneer"
+
 	"github.com/vault-thirteen/SPA/cmd/indexer/cla"
 	"github.com/vault-thirteen/SPA/pkg/common/models"
 	"github.com/vault-thirteen/SPA/pkg/indexer"
-	ver "github.com/vault-thirteen/auxie/Versioneer/classes/Versioneer"
 )
 
 func main() {
@@ -68,7 +69,7 @@ func mustBeNoError(err error) {
 }
 
 func showIntro() {
-	versioneer, err := ver.New()
+	versioneer, err := ver.New(false)
 	mustBeNoError(err)
 	versioneer.ShowIntroText("Indexer")
 	versioneer.ShowComponentsInfoText()
