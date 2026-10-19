@@ -1,0 +1,11 @@
+{
+	"Date": "2022-02-10",
+	"Time": "23:59",
+	"Category": "cat",
+	"Title": "This is a test article.",
+	"Description": "This article is about something. It does not really matter because it is only a test and nothing more.",
+	"Content": "This is the content. It is not very big. This is the content. It is not very big. This is the content. It is not very big. This is the content. It is not very big. This is the content. It is not very big. This is the content. It is not very big. This is the content. It is not very big. This is the content. It is not very big. End of the content.",
+	"Icon": "123",
+	"Author": "tester",
+	"CRC32": "junk"
+}

@@ -1,0 +1,172 @@
+package server
+
+import (
+	"context"
+	"errors"
+	"net/http"
+	"net/http/httputil"
+	"sync"
+	"sync/atomic"
+	"time"
+
+	"github.com/vault-thirteen/IPARC/common/helper"
+	"github.com/vault-thirteen/IPARC/iparc"
+	"github.com/vault-thirteen/auxie/cio"
+
+	ce "github.com/vault-thirteen/SPA/pkg/common/error"
+	"github.com/vault-thirteen/SPA/pkg/common/message"
+	"github.com/vault-thirteen/SPA/pkg/common/net"
+	set "github.com/vault-thirteen/SPA/pkg/proxy/settings"
+)
+
+const (
+	ProxyServerName = "SPARP"
+)
+
+type Server struct {
+	settings *set.Settings
+
+	// HTTP(S) server.
+	listenDsn  string
+	httpServer *http.Server
+
+	// Channel for an external controller. When a message comes from this
+	// channel, a controller must stop this server. The server does not stop
+	// itself.
+	mustBeStopped chan bool
+
+	// Internal control structures.
+	subRoutines *sync.WaitGroup
+	mustStop    *atomic.Bool
+	httpErrors  chan error
+
+	// HTTP header values.
+	httpHdrCacheControl string
+
+	// Proxy Server.
+	proxy *httputil.ReverseProxy
+
+	iparc                 *iparc.IPAddressV4RangeCollection
+	forbiddenCountryCodes map[string]bool
+}
+
+func NewServer(stn *set.Settings) (srv *Server, err error) {
+	err = stn.Check()
+	if err != nil {
+		return nil, err
+	}
+
+	srv = &Server{
+		settings:      stn,
+		listenDsn:     net.FormatHostPort(stn.ServerHost, stn.ServerPort),
+		mustBeStopped: make(chan bool, 2),
+		subRoutines:   new(sync.WaitGroup),
+		mustStop:      new(atomic.Bool),
+		httpErrors:    make(chan error, 8),
+
+		httpHdrCacheControl: net.FormatHttpHeader_CacheControl(stn.HttpCacheControlMaxAge),
+	}
+	srv.mustStop.Store(false)
+
+	srv.proxy, err = srv.newProxy(srv.settings.ProxyTargetServerAddress)
+	if err != nil {
+		return nil, err
+	}
+
+	// HTTP Server.
+	srv.httpServer = &http.Server{
+		Addr:    srv.listenDsn,
+		Handler: http.Handler(http.HandlerFunc(srv.httpRouter)),
+	}
+
+	err = srv.initFirewall()
+	if err != nil {
+		return nil, err
+	}
+
+	return srv, nil
+}
+
+func (srv *Server) initFirewall() (err error) {
+	var dbFilePath string
+	dbFilePath, err = helper.UnpackDbFile(srv.settings.IPARCDbFile)
+	if err != nil {
+		return err
+	}
+
+	srv.iparc, err = iparc.NewFromCsvFile(dbFilePath)
+	if err != nil {
+		return err
+	}
+
+	srv.forbiddenCountryCodes = make(map[string]bool)
+	for _, fcc := range srv.settings.ForbiddenCountryCodes {
+		srv.forbiddenCountryCodes[fcc] = true
+	}
+
+	return nil
+}
+
+func (srv *Server) GetListenDsn() (dsn string) {
+	return srv.listenDsn
+}
+
+func (srv *Server) GetWorkMode() (modeId byte) {
+	return srv.settings.ServerModeId
+}
+
+func (srv *Server) GetStopChannel() *chan bool {
+	return &srv.mustBeStopped
+}
+
+func (srv *Server) Start() (err error) {
+	srv.startHttpServer()
+
+	srv.subRoutines.Add(1)
+	go srv.listenForHttpErrors()
+
+	return nil
+}
+
+func (srv *Server) Stop() (err error) {
+	srv.mustStop.Store(true)
+
+	ctx, cf := context.WithTimeout(context.Background(), time.Minute)
+	defer cf()
+	err = srv.httpServer.Shutdown(ctx)
+	if err != nil {
+		return err
+	}
+
+	close(srv.httpErrors)
+
+	srv.subRoutines.Wait()
+
+	return nil
+}
+
+func (srv *Server) startHttpServer() {
+	go func() {
+		var listenError error
+		switch srv.settings.ServerModeId {
+		case set.ServerModeIdHttp:
+			listenError = srv.httpServer.ListenAndServe()
+		case set.ServerModeIdHttps:
+			listenError = srv.httpServer.ListenAndServeTLS(srv.settings.CertFile, srv.settings.KeyFile)
+		}
+		if (listenError != nil) && (!errors.Is(listenError, http.ErrServerClosed)) {
+			srv.httpErrors <- listenError
+		}
+	}()
+}
+
+func (srv *Server) listenForHttpErrors() {
+	defer srv.subRoutines.Done()
+
+	for err := range srv.httpErrors {
+		cio.LogMessage(ce.Err_ServerError, err)
+		srv.mustBeStopped <- true
+	}
+
+	cio.LogMessage(message.Msg_HttpErrorListenerStopped)
+}
